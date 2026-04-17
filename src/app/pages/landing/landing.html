@@ -1,1 +1,83 @@
-<p>landing works!</p>
+<div class="d-flex justify-content-between align-items-center container-fluid ">
+  <div class="container-fluid m-1">
+    <h1 class="w-50 fs-1 fw-bold">دراستك الجامعية،<br>
+    في مكان واحد</h1>
+    <p class="text-secondary fs-5">وداعًا للفوضى: درجاتك،
+       إعلاناتك، مهامك، والمواد الدراسية. منصة
+       StudySync تجمع كل احتياجاتك التعليمية في واجهة واحدة منظمة وسهلة ومريحة وعملية.</p>
+    <button type="button" class="btn btn-primary bg-gradient m-2 " routerLink="/register">
+        إبدأ الان
+    </button>
+  </div>
+  <div class="image">
+    <img src="landing1.png" style="max-width:570px;">
+  </div>
+</div>
+<div class="m-5 p-2">
+  <h3 class="text-center m-3">لماذا الطلاب تحتاج المنصة ؟</h3>
+  <div class="boxes">
+    <div class="row text-center m-5">
+      <div class="col-lg-4 col-md-6 col-sm-12 shadow-sm p-4 d-flex flex-column justify-content-center align-items-center">
+        <div class="circle one d-flex justify-content-center align-items-center rounded-circle">
+          <div class="inner-circle d-flex justify-content-center align-items-center rounded-circle bg-white">
+            <span class="percentage fw-bold">51.1%</span>
+          </div>
+        </div>
+        <p class="stat-text text-secondary">يعانون من صعوبة الوصول للأخبار</p>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 shadow-sm p-4 d-flex flex-column justify-content-center align-items-center">
+        <div class="circle two d-flex justify-content-center align-items-center rounded-circle">
+          <div class="inner-circle d-flex justify-content-center align-items-center rounded-circle bg-white">
+            <span class="percentage fw-bold">85.4%</span>
+          </div>
+        </div>
+        <p class="stat-text text-secondary">من الطلاب يدعمون إنشاء منصة رسمية</p>
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 shadow-sm p-4 d-flex flex-column justify-content-center align-items-center">
+        <div class="circle three d-flex justify-content-center align-items-center rounded-circle">
+          <div class="inner-circle d-flex justify-content-center align-items-center rounded-circle bg-white">
+            <span class="percentage fw-bold">64.2%</span>
+          </div>
+        </div>
+        <p class="stat-text text-secondary">فاتهم موعد مهم</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="m-5 p-2">
+  <h3 class="text-center m-3">كل أدواتك الأكاديمية في مكان واحد</h3>
+  <div class="grid">
+    <div class="box shadow-sm rounded-2 border p-4">
+      <img src="/Taskmanagement.svg" alt="">
+      <h5>إدارة المهام</h5>
+      <p class="text-secondary">تتبع جميع المهام والواجبات مع تذكيرات تلقائية قبل انتهاء المواعيد النهائية.</p>
+    </div>
+    <div class="box shadow-sm rounded-2 border p-4">
+      <img src="/notification.svg" alt="">
+      <h5>إشعارات</h5>
+      <p class="text-secondary">استقبل جميع الإعلانات والتحديثات الهامة في مكان واحد دون فوضى الجروبات.</p>
+    </div>
+    <div class="box shadow-sm rounded-2 border p-4">
+      <img src="/grades.svg" alt="">
+      <h5>تتبع الدرجات</h5>
+      <p class="text-secondary">شاهد جميع  ملفات درجاتك وتقديراتك مجمعة في ملف الدرجاتز.</p>
+    </div>
+    <div class="box shadow-sm rounded-2 border p-4">
+      <img src="/archive.svg" alt="">
+      <h5>الأرشيف</h5>
+      <p class="text-secondary">جمع جميع محاضراتك، ملفات PDF، وروابط الدروس المباشرة في مكان واحد منظم.</p>
+    </div>
+    <div class="box shadow-sm rounded-2 border p-4">
+      <img src="/poll.svg" alt="">
+      <h5>نظام التصويت</h5>
+      <p class="text-secondary">شارك في استطلاعات الرأي الخاصة بالدفعة واطلع على النتائج الفورية بسهولة.</p>
+    </div>
+    <div class="box shadow-sm rounded-2 border p-4">
+      <img src="/timetable.svg" alt="">
+      <h5>سجل الدراسة</h5>
+      <p class="text-secondary">اطلع على جدول المحاضرات والسكاشن مع تحديثات فورية لأي تغييرات تطرأ عليه.</p>
+    </div>
+
+  </div>
+</div>
+<router-outlet></router-outlet>

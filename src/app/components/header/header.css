@@ -1,0 +1,11 @@
+.login{
+  border: none !important;
+}
+.login:hover{
+  color: white !important;
+  background: linear-gradient(135deg, #05A318 0%, #165A1F 100%) !important;
+}
+.btn-primary{
+  background: linear-gradient(135deg, #6366F1 0%, #393B8B 100%) !important;
+}
+

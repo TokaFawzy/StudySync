@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+  --main-primary: linear-gradient(135deg, #6366F1 0%, #393B8B 100%);
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body{
+  background-color: #FAFAFA;
+}
+
