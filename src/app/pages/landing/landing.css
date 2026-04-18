@@ -71,3 +71,10 @@
 .box:hover{
   transform: translateY(-10px);
 }
+.img-section{
+  background-image: url("/Section.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+}
