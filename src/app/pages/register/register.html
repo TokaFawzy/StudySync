@@ -1,1 +1,246 @@
-<p>register works!</p>
+<div class="container-fluid">
+  <div class="head d-flex justify-content-center align-items-center flex-column mt-5">
+    <img src="/Logo.svg" alt="" />
+    <p class="fw-bold mt-2">انضم إلينا</p>
+    <p class="text-secondary">منصة StudySync للتنظيم الجامعي</p>
+  </div>
+  <div class="form container">
+    <form class="" [formGroup]="registerForm">
+      <label for="fullName">
+        الأسم الكامل
+        <input
+          type="text"
+          placeholder="مثال: محمد خالد"
+          id="fullName"
+          formControlName="name"
+          [class.invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+        />
+        <small
+          *ngIf="
+            registerForm.get('name')?.invalid &&
+            registerForm.get('name')?.hasError('required') &&
+            registerForm.get('name')?.touched
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+        <small
+          *ngIf="
+            registerForm.get('name')?.invalid &&
+            registerForm.get('name')?.hasError('minlength') &&
+            registerForm.get('name')?.touched
+          "
+        >
+          الاسم يجب أن يكون 8 أحرف على الأقل
+        </small>
+      </label>
+      <label for="username">
+        اسم المستخدم
+        <input
+          type="text"
+          placeholder="اسم المستخدم"
+          id="username"
+          formControlName="userName"
+          [class.invalid]="
+            registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched
+          "
+        />
+        <small
+          *ngIf="
+            registerForm.get('userName')?.invalid &&
+            registerForm.get('userName')?.hasError('required') &&
+            registerForm.get('userName')?.touched
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+        <small
+          *ngIf="
+            registerForm.get('userName')?.invalid &&
+            registerForm.get('userName')?.hasError('minlength') &&
+            registerForm.get('userName')?.touched
+          "
+        >
+          الاسم يجب أن يكون 8 أحرف على الأقل
+        </small>
+      </label>
+      <label for="role"
+        >الصفة الأكاديمية
+        <select
+          class="text-secondary"
+          id="role"
+          formControlName="role"
+          [class.invalid]="registerForm.get('role')?.invalid && registerForm.get('role')?.touched"
+        >
+          <option value="">اختر...</option>
+          <option value="student">طالب/طالبة</option>
+          <option value="doctor">دكتور</option>
+          <option value="assistant">معيد</option>
+        </select>
+        <small
+          *ngIf="
+            registerForm.get('role')?.touched && registerForm.get('role')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+      </label>
+      <label for="number" *ngIf="registerForm.get('role')?.value == 'student'">
+        رقم الجلوس
+        <input type="text" placeholder="" id="number" formControlName="number"
+        [class.invalid]="registerForm.get('number')?.invalid && registerForm.get('number')?.touched" />
+        <small
+          *ngIf="
+            registerForm.get('email')?.touched &&
+            registerForm.get('email')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+      </label>
+      <label for="department"
+        >القسم
+        <select
+          class="text-secondary"
+          id="department"
+          formControlName="department"
+          [class.invalid]="
+            registerForm.get('department')?.invalid && registerForm.get('department')?.touched
+          "
+        >
+          <option value="">اختر...</option>
+          <option value="CS">علوم الحاسب</option>
+          <option value="IT">تكنولوجيا المعلومات</option>
+          <option value="IS">نظم المعلومات</option>
+        </select>
+        <small
+          *ngIf="
+            registerForm.get('department')?.touched &&
+            registerForm.get('department')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+      </label>
+      <label for="level"
+        >الفرقة الدراسية
+        <select
+          name=""
+          id="level"
+          formControlName="level"
+          class="text-secondary"
+          [class.invalid]="registerForm.get('level')?.invalid && registerForm.get('level')?.touched"
+        >
+          <option value="" class="">اختر...</option>
+          <option value="1">الأولى</option>
+          <option value="2">الثانية</option>
+          <option value="3">الثالثة</option>
+          <option value="4">الرابعة</option>
+        </select>
+        <small
+          *ngIf="
+            registerForm.get('level')?.touched && registerForm.get('level')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+      </label>
+      <label for="email" class="full">
+        البريد الجامعي
+        <input
+          type="email"
+          formControlName="email"
+          id="email"
+          placeholder="name@ics.tanta.edu.eg"
+          [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+        />
+        <small
+          *ngIf="
+            registerForm.get('email')?.touched &&
+            registerForm.get('email')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+        <small
+          *ngIf="
+            registerForm.get('email')?.touched &&
+            registerForm.get('email')?.hasError('pattern') &&
+            registerForm.get('email')?.touched
+          "
+        >
+          الإيميل غير صالح
+        </small>
+        <p class="text-secondary">
+          احصل على البريد الجامعي من القسم الخاص بك (التعليم الإلكتروني [Keywords Extraction])
+        </p>
+      </label>
+      <label for="password" class="full">
+        كلمة المرور
+        <input
+          type="password"
+          name=""
+          id="password"
+          placeholder=""
+          formControlName="password"
+          [class.invalid]="
+            registerForm.get('password')?.invalid && registerForm.get('password')?.touched
+          "
+        />
+        <small
+          *ngIf="
+            registerForm.get('password')?.touched &&
+            registerForm.get('password')?.hasError('required') &&
+            registerForm.get('password')?.touched
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+        <small
+          *ngIf="
+            registerForm.get('password')?.touched &&
+            registerForm.get('password')?.hasError('minlength') &&
+            registerForm.get('password')?.touched
+          "
+        >
+          كلمة المرور يجب أن تكون 8 أحرف على الأقل
+        </small>
+      </label>
+      <div
+        class="upload-Box full"
+        (click)="fileInput.click(); registerForm.get('cardImg')?.markAsTouched()"
+        [class.invalid]="
+          registerForm.get('cardImg')?.invalid && registerForm.get('cardImg')?.touched
+        "
+      >
+        <label for="" class="full"
+          >صورة البطاقة الجامعية
+          <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+          <div
+            class="content d-flex flex-column justify-content-center align-items-center"
+            *ngIf="!imagePreview"
+          >
+            <i class="fa-solid fa-arrow-up-from-bracket fa-2xl m-2"></i>
+            <p class="m-2">اضغط لتحميل صورة البطاقة الجامعية</p>
+          </div>
+        </label>
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="" />
+        <small
+          *ngIf="
+            registerForm.get('cardImg')?.touched &&
+            registerForm.get('cardImg')?.hasError('required')
+          "
+        >
+          يجب تحميل صورة البطاقة الجامعية لإتمام التسجيل
+        </small>
+      </div>
+      <div class="full">
+        <label for="">
+          <button class="btn btn-primary w-50 mx-auto" type="submit" [disabled]="!registerForm.valid">
+            إتمام التسجيل
+          </button>
+        </label>
+      </div>
+    </form>
+  </div>
+</div>
