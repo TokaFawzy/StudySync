@@ -5,33 +5,49 @@
     <p class="text-secondary">منصة StudySync للتنظيم الجامعي</p>
   </div>
   <div class="form container">
-    <form class="" [formGroup]="registerForm">
+    <div class="d-flex justify-content-center align-items-center mt-4">
+      <button
+      type="button"
+      class="btn m-2"
+      [class.btn-primary]="registerForm.get('role')?.value==='STUDENT'"
+      [class.btn-outline-primary]="registerForm.get('role')?.value!=='STUDENT'"
+      (click)="registerForm.get('role')?.setValue('STUDENT')"
+      >طالب/طالبة</button>
+      <button
+      type="button"
+      class="btn m-2"
+      [class.btn-primary]="registerForm.get('role')?.value!=='STUDENT'"
+      [class.btn-outline-primary]="registerForm.get('role')?.value==='STUDENT'"
+      (click)="registerForm.get('role')?.setValue('INSTRUCTOR')"
+      >محاضر</button>
+    </div>
+    <form class="" [formGroup]="registerForm" (ngSubmit)="sendData()">
       <label for="fullName">
         الأسم الكامل
         <input
           type="text"
           placeholder="مثال: محمد خالد"
           id="fullName"
-          formControlName="name"
-          [class.invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+          formControlName="fullName"
+          [class.invalid]="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
         />
         <small
           *ngIf="
-            registerForm.get('name')?.invalid &&
-            registerForm.get('name')?.hasError('required') &&
-            registerForm.get('name')?.touched
+            registerForm.get('fullName')?.invalid &&
+            registerForm.get('fullName')?.hasError('required') &&
+            registerForm.get('fullName')?.touched
           "
         >
           هذا الحقل مطلوب
         </small>
         <small
           *ngIf="
-            registerForm.get('name')?.invalid &&
-            registerForm.get('name')?.hasError('minlength') &&
-            registerForm.get('name')?.touched
+            registerForm.get('fullName')?.invalid &&
+            registerForm.get('fullName')?.hasError('minlength') &&
+            registerForm.get('fullName')?.touched
           "
         >
-          الاسم يجب أن يكون 8 أحرف على الأقل
+          الاسم يجب أن يكون 10 أحرف على الأقل
         </small>
       </label>
       <label for="username">
@@ -61,21 +77,22 @@
             registerForm.get('userName')?.touched
           "
         >
-          الاسم يجب أن يكون 8 أحرف على الأقل
+          الاسم يجب أن يكون 4 أحرف على الأقل
         </small>
       </label>
       <label for="role"
+          *ngIf="registerForm.get('role')?.value !== 'STUDENT'"
         >الصفة الأكاديمية
         <select
           class="text-secondary"
           id="role"
           formControlName="role"
+          *ngIf="registerForm.get('role')?.value !== 'STUDENT'"
           [class.invalid]="registerForm.get('role')?.invalid && registerForm.get('role')?.touched"
         >
-          <option value="">اختر...</option>
-          <option value="student">طالب/طالبة</option>
-          <option value="doctor">دكتور</option>
-          <option value="assistant">معيد</option>
+          <option value="instructorType">اختر...</option>
+          <option value="Professor">دكتور</option>
+          <option value="TeachingAssistant">معيد</option>
         </select>
         <small
           *ngIf="
@@ -85,14 +102,14 @@
           هذا الحقل مطلوب
         </small>
       </label>
-      <label for="number" *ngIf="registerForm.get('role')?.value == 'student'">
+      <label for="seatNumber" *ngIf="registerForm.get('role')?.value == 'STUDENT'">
         رقم الجلوس
-        <input type="text" placeholder="" id="number" formControlName="number"
-        [class.invalid]="registerForm.get('number')?.invalid && registerForm.get('number')?.touched" />
+        <input type="text" placeholder="" id="seatNumber" formControlName="seatNumber"
+        [class.invalid]="registerForm.get('seatNumber')?.invalid && registerForm.get('seatNumber')?.touched" />
         <small
           *ngIf="
-            registerForm.get('email')?.touched &&
-            registerForm.get('email')?.hasError('required')
+            registerForm.get('seatNumber')?.touched &&
+            registerForm.get('seatNumber')?.hasError('required')
           "
         >
           هذا الحقل مطلوب
@@ -122,7 +139,7 @@
           هذا الحقل مطلوب
         </small>
       </label>
-      <label for="level"
+      <label for="level"*ngIf="registerForm.get('role')?.value == 'STUDENT'"
         >الفرقة الدراسية
         <select
           name=""
@@ -132,10 +149,10 @@
           [class.invalid]="registerForm.get('level')?.invalid && registerForm.get('level')?.touched"
         >
           <option value="" class="">اختر...</option>
-          <option value="1">الأولى</option>
-          <option value="2">الثانية</option>
-          <option value="3">الثالثة</option>
-          <option value="4">الرابعة</option>
+          <option value="ONE">الأولى</option>
+          <option value="TWO">الثانية</option>
+          <option value="THREE">الثالثة</option>
+          <option value="FOUR">الرابعة</option>
         </select>
         <small
           *ngIf="
@@ -145,28 +162,27 @@
           هذا الحقل مطلوب
         </small>
       </label>
-      <label for="email" class="full">
+      <label for="universityEmail" class="full">
         البريد الجامعي
         <input
-          type="email"
-          formControlName="email"
-          id="email"
+          type="universityEmail"
+          formControlName="universityEmail"
+          id="universityEmail"
           placeholder="name@ics.tanta.edu.eg"
-          [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          [class.invalid]="registerForm.get('universityEmail')?.invalid && registerForm.get('universityEmail')?.touched"
         />
         <small
           *ngIf="
-            registerForm.get('email')?.touched &&
-            registerForm.get('email')?.hasError('required')
+            registerForm.get('universityEmail')?.touched &&
+            registerForm.get('universityEmail')?.hasError('required')
           "
         >
           هذا الحقل مطلوب
         </small>
         <small
           *ngIf="
-            registerForm.get('email')?.touched &&
-            registerForm.get('email')?.hasError('pattern') &&
-            registerForm.get('email')?.touched
+            registerForm.get('universityEmail')?.touched &&
+            registerForm.get('universityEmail')?.hasError('pattern')
           "
         >
           الإيميل غير صالح
@@ -181,7 +197,7 @@
           type="password"
           name=""
           id="password"
-          placeholder=""
+          placeholder="••••••••"
           formControlName="password"
           [class.invalid]="
             registerForm.get('password')?.invalid && registerForm.get('password')?.touched
@@ -190,8 +206,7 @@
         <small
           *ngIf="
             registerForm.get('password')?.touched &&
-            registerForm.get('password')?.hasError('required') &&
-            registerForm.get('password')?.touched
+            registerForm.get('password')?.hasError('required')
           "
         >
           هذا الحقل مطلوب
@@ -199,18 +214,25 @@
         <small
           *ngIf="
             registerForm.get('password')?.touched &&
-            registerForm.get('password')?.hasError('minlength') &&
-            registerForm.get('password')?.touched
+            registerForm.get('password')?.hasError('minlength')
           "
         >
           كلمة المرور يجب أن تكون 8 أحرف على الأقل
         </small>
+        <small
+          *ngIf="
+            registerForm.get('password')?.touched &&
+            registerForm.get('password')?.errors?.['pattern']
+          "
+        >
+          كلمة المرور ضعيفة
+        </small>
       </label>
       <div
         class="upload-Box full"
-        (click)="fileInput.click(); registerForm.get('cardImg')?.markAsTouched()"
+        (click)="fileInput.click(); registerForm.get('idCardPath')?.markAsTouched()"
         [class.invalid]="
-          registerForm.get('cardImg')?.invalid && registerForm.get('cardImg')?.touched
+          registerForm.get('idCardPath')?.invalid && registerForm.get('idCardPath')?.touched
         "
       >
         <label for="" class="full"
@@ -224,11 +246,11 @@
             <p class="m-2">اضغط لتحميل صورة البطاقة الجامعية</p>
           </div>
         </label>
-        <img *ngIf="imagePreview" [src]="imagePreview" alt="" />
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="" class="w-100 "/>
         <small
           *ngIf="
-            registerForm.get('cardImg')?.touched &&
-            registerForm.get('cardImg')?.hasError('required')
+            registerForm.get('idCardPath')?.touched &&
+            registerForm.get('idCardPath')?.hasError('required')
           "
         >
           يجب تحميل صورة البطاقة الجامعية لإتمام التسجيل
@@ -236,11 +258,32 @@
       </div>
       <div class="full">
         <label for="">
-          <button class="btn btn-primary w-50 mx-auto" type="submit" [disabled]="!registerForm.valid">
+          <button class="btn btn-primary w-50 mx-auto " type="submit" [disabled]="!registerForm.valid">
             إتمام التسجيل
           </button>
+        <small class="text-success text-center"
+          *ngIf="
+            isSubmmited
+          "
+        >
+        تم انشاء الحساب بنجاح
+        </small>
+        <small class="text-center"
+          *ngIf="
+            hasError
+          "
+        >
+        فشل انشاء الحساب يرجى المحاولة مرة اخرى
+        </small>
         </label>
       </div>
+      <div class="full">
+        <p class="text-secondary have-acc"> لديك حساب بالفعل؟ <a routerLink="/login">سجل الدخول</a></p>
+      </div>
+      <div class="full text-center"><a routerLink="/landing">
+
+        العودة إلى الصفحة الرئيسية
+      </a></div>
     </form>
   </div>
 </div>

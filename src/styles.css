@@ -9,4 +9,7 @@
 body{
   background-color: #FAFAFA;
 }
+.invalid{
+  border-color: rgba(255, 54, 54, 0.877) ;
+}
 

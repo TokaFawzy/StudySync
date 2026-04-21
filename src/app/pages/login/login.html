@@ -1,1 +1,64 @@
-<p>login works!</p>
+<div class="container-fluid">
+  <div class="head d-flex justify-content-center align-items-center flex-column mt-5">
+    <img src="/Logo.svg" alt="" />
+    <p class="fw-bold mt-2"> مرحبا بعودتك</p>
+    <p class="text-secondary">منصة StudySync للتنظيم الجامعي</p>
+  </div>
+  <div class="form container">
+    <form class="" [formGroup]="loginForm" (ngSubmit)="onLogin()"
+    class="d-flex align-items-center justify-content-center flex-column">
+      <label for="username" class="full">
+        اسم المستخدم
+        <input
+          type="text"
+          formControlName="username"
+          id="username"
+          placeholder="اسم المستخدم"
+          [class.invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+        />
+        <small
+          *ngIf="
+            loginForm.get('username')?.touched &&
+            loginForm.get('username')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+      </label>
+      <label for="password" class="full">
+        كلمة المرور
+        <input
+          type="password"
+          name=""
+          id="password"
+          placeholder="••••••••"
+          formControlName="password"
+          [class.invalid]="
+            loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+          "
+        />
+        <small
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.hasError('required')
+          "
+        >
+          هذا الحقل مطلوب
+        </small>
+      </label>
+      <div class="full">
+        <label for="" class="">
+          <button class="btn btn-primary mx-auto " type="submit" [disabled]="!loginForm.valid">
+             تسجيل الدخول
+          </button>
+        </label>
+      </div>
+      <div class="full">
+        <p class="text-secondary have-acc">  ليس لديك حساب ؟ <a routerLink="/register">سجل الان</a></p>
+      </div>
+      <div class="full text-center">
+        <a routerLink="/landing">العودة إلى الصفحة الرئيسية</a>
+      </div>
+    </form>
+  </div>
+</div>

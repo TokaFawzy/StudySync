@@ -17,8 +17,22 @@ input,select{
   border-radius: 5px;
   outline: none;
 }
+input:hover,select:hover{
+  border-color: #6062ddd3;
+}
+
 .full{
   grid-column: span 2;
+}
+@media (max-width: 762px){
+  .full{
+    grid-column: span 1;
+  }
+}
+@media (min-width: 1400px){
+  .full{
+    grid-column: span 4;
+  }
 }
 .content{
   gap: 20px;
@@ -44,4 +58,16 @@ small{
 }
 .btn-primary{
   background: linear-gradient(135deg, #6366F1 0%, #393B8B 100%) !important;
+}
+.have-acc{
+    margin: 10px auto;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px
+}
+button{
+  cursor: pointer;
+}
+.btn-outline-primary:hover{
+  background: var(--main-primary);
 }
