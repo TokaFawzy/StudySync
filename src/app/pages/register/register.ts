@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './../../Service/auth-service';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from "@angular/router";
 
+declare var bootstrap:any;
 @Component({
   selector: 'app-register',
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
@@ -24,7 +25,7 @@ export class Register {
     password:new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(64),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/)]),
     idCardPath:new FormControl('', [Validators.required]),
   })
-  constructor(private AuthService:AuthService,private http:HttpClient){}
+  constructor(private AuthService:AuthService,private http:HttpClient,private crd:ChangeDetectorRef){}
   updateValidators(role: string | null) {
       const controleNumber=this.registerForm.get('seatNumber');
       const controlLevel=this.registerForm.get('level');
@@ -40,6 +41,14 @@ export class Register {
       controleNumber?.updateValueAndValidity(),
       controlLevel?.updateValueAndValidity();
     ;
+  }
+  checkCondiition(pattern:string){
+    const password=this.registerForm.get('password')?.value||'';
+    const regex=new RegExp(pattern);
+    return regex.test(password);
+  }
+  checkLenth():boolean{
+    return (this.registerForm.get('password')?.value||'').length>=8;
   }
   ngOnInit() {
     this.updateValidators(this.registerForm.get('role')?.value!);
@@ -60,6 +69,7 @@ export class Register {
         next: (res: any) => {
           this.registerForm.patchValue({ idCardPath: res.secure_url });
           this.imagePreview = res.secure_url;
+          this.crd.detectChanges();
         },
       });
     }
@@ -78,9 +88,24 @@ export class Register {
           {
             next:(res)=>{
               this.isSubmmited=true;
+              this.crd.detectChanges();
+              this.registerForm.reset();
             },
             error:(err)=>{
+              const serverErrors: string[] = err.error?.errors || [];
+              const allErrorsText = serverErrors.join(' ').toLowerCase();
+              const mainMessage = (err.error?.message || '').toLowerCase();
+              if(allErrorsText.includes('username')){
+                this.registerForm.get('userName')?.setErrors({taken:true});
+              }
+              if(allErrorsText.includes('email')){
+                this.registerForm.get('universityEmail')?.setErrors({taken:true});
+              }
+              if(allErrorsText.includes('record with this information') || mainMessage.includes('integrity')){
+                this.registerForm.get('seatNumber')?.setErrors({taken:true});
+              }
               this.hasError=true;
+              this.crd.detectChanges();
             }
           }
         )
@@ -91,12 +116,13 @@ export class Register {
           {
             next:(res)=>{
               this.isSubmmited=true;
+              this.crd.detectChanges();
             },
             error:(err)=>{
               this.hasError=true;
-            }
+              this.crd.detectChanges();
           }
-        )
+      })
       }
     }else{
       this.registerForm.markAllAsTouched();

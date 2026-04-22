@@ -79,6 +79,14 @@
         >
           الاسم يجب أن يكون 4 أحرف على الأقل
         </small>
+                <small
+          *ngIf="
+            registerForm.get('userName')?.touched &&
+            registerForm.get('userName')?.hasError('taken')
+          "
+        >
+        اسم المستخدم موجود بالفعل
+        </small>
       </label>
       <label for="role"
           *ngIf="registerForm.get('role')?.value !== 'STUDENT'"
@@ -113,6 +121,14 @@
           "
         >
           هذا الحقل مطلوب
+        </small>
+        <small
+          *ngIf="
+            registerForm.get('seatNumber')?.touched &&
+            registerForm.get('seatNumber')?.hasError('taken')
+          "
+        >
+        رقم الجلوس موجود بالفعل
         </small>
       </label>
       <label for="department"
@@ -187,6 +203,14 @@
         >
           الإيميل غير صالح
         </small>
+        <small
+          *ngIf="
+            registerForm.get('universityEmail')?.touched &&
+            registerForm.get('universityEmail')?.hasError('taken')
+          "
+        >
+        الايميل مستخدم بالفعل
+        </small>
         <p class="text-secondary">
           احصل على البريد الجامعي من القسم الخاص بك (التعليم الإلكتروني [Keywords Extraction])
         </p>
@@ -211,22 +235,59 @@
         >
           هذا الحقل مطلوب
         </small>
-        <small
-          *ngIf="
-            registerForm.get('password')?.touched &&
-            registerForm.get('password')?.hasError('minlength')
-          "
-        >
-          كلمة المرور يجب أن تكون 8 أحرف على الأقل
-        </small>
-        <small
-          *ngIf="
-            registerForm.get('password')?.touched &&
-            registerForm.get('password')?.errors?.['pattern']
-          "
-        >
-          كلمة المرور ضعيفة
-        </small>
+        <div class="" *ngIf="registerForm.get('password')?.touched || registerForm.get('password')?.dirty">
+          <div class="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('pattern')">
+            <i class="fa-solid fa-xmark text-danger "*ngIf="!checkCondiition('[A-Z]')" ></i>
+            <i class="fa-solid fa-check text-success" *ngIf="checkCondiition('[A-Z]')"></i>
+            <small
+            [class.text-success]="checkCondiition('[A-Z]')"
+            [class.text-danger]="!checkCondiition('[A-Z]')"
+            >
+            على الاقل حرف كبير
+          </small>
+        </div>
+        <div class="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('pattern')">
+          <i class="fa-solid fa-xmark text-danger "*ngIf="!checkCondiition('[a-z]')" ></i>
+          <i class="fa-solid fa-check text-success" *ngIf="checkCondiition('[a-z]')"></i>
+          <small
+          [class.text-success]="checkCondiition('[a-z]')"
+          [class.text-danger]="!checkCondiition('[a-z]')"
+          >
+            على الاقل حرف صغير
+          </small>
+        </div>
+        <div class="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('pattern')">
+          <i class="fa-solid fa-xmark text-danger "*ngIf="!checkCondiition('[0-9]')" ></i>
+          <i class="fa-solid fa-check text-success" *ngIf="checkCondiition('[0-9]')"></i>
+          <small
+          [class.text-success]="checkCondiition('[0-9]')"
+          [class.text-danger]="!checkCondiition('[0-9]')"
+          >
+            على الاقل رقم واحد
+          </small>
+        </div>
+        <div class="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('pattern')">
+          <i class="fa-solid fa-xmark text-danger "*ngIf="!checkCondiition('[!@#$%^&*]')" ></i>
+          <i class="fa-solid fa-check text-success" *ngIf="checkCondiition('[!@#$%^&*]')"></i>
+          <small
+          [class.text-success]="checkCondiition('[!@#$%^&*]')"
+          [class.text-danger]="!checkCondiition('[!@#$%^&*]')"
+          >
+            على الاقل رمز (#/@$!%*?&)
+          </small>
+        </div>
+        <div class="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('pattern')">
+          <i class="fa-solid fa-xmark text-danger "*ngIf="!checkLenth()" ></i>
+          <i class="fa-solid fa-check text-success" *ngIf="checkLenth()"></i>
+          <small
+          [class.text-success]="checkLenth()"
+          [class.text-danger]="!checkLenth()"
+          >
+            على الاقل 8 احرف
+          </small>
+        </div>
+
+        </div>
       </label>
       <div
         class="upload-Box full"
@@ -261,29 +322,26 @@
           <button class="btn btn-primary w-50 mx-auto " type="submit" [disabled]="!registerForm.valid">
             إتمام التسجيل
           </button>
-        <small class="text-success text-center"
-          *ngIf="
-            isSubmmited
-          "
-        >
-        تم انشاء الحساب بنجاح
-        </small>
-        <small class="text-center"
-          *ngIf="
-            hasError
-          "
-        >
-        فشل انشاء الحساب يرجى المحاولة مرة اخرى
-        </small>
         </label>
       </div>
       <div class="full">
         <p class="text-secondary have-acc"> لديك حساب بالفعل؟ <a routerLink="/login">سجل الدخول</a></p>
       </div>
       <div class="full text-center"><a routerLink="/landing">
-
         العودة إلى الصفحة الرئيسية
       </a></div>
     </form>
+  </div>
+</div>
+<div class="overlay"*ngIf="isSubmmited">
+  <div
+  class="popUp d-flex flex-column justify-content-center align-items-center mt-5 bg-white shadow-lg border rounded-2 w-50 mx-auto p-2"
+  >
+    <div class="d-flex flex-column justify-content-center align-items-center m-2 p-2">
+      <i class="fa-solid fa-circle-check text-success fa-2xl"></i>
+      <h3 class="m-5">تم تسجيل الحساب بنجاح</h3>
+      <p class="text-secondary">يمكنك الان تسجيل الدخول</p>
+    </div>
+    <button class="btn btn-primary" routerLink="/login"> سجل الدخول</button>
   </div>
 </div>

@@ -49,8 +49,11 @@
       <div class="full">
         <label for="" class="">
           <button class="btn btn-primary mx-auto " type="submit" [disabled]="!loginForm.valid">
-             تسجيل الدخول
+            تسجيل الدخول
           </button>
+          <small *ngIf="hasError" class="text-danger text-center d-block mt-2">
+            اسم المستخدم أو كلمة المرور غير صحيحة
+          </small>
         </label>
       </div>
       <div class="full">
