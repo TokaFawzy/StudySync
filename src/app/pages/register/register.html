@@ -246,7 +246,7 @@
             <p class="m-2">اضغط لتحميل صورة البطاقة الجامعية</p>
           </div>
         </label>
-        <img *ngIf="imagePreview" [src]="imagePreview" alt="" class="w-100 "/>
+        <img *ngIf="imagePreview" [src]="imagePreview" alt="" class="w-100 " style="height:300px ;"/>
         <small
           *ngIf="
             registerForm.get('idCardPath')?.touched &&

@@ -62,7 +62,6 @@ export class Register {
           this.imagePreview = res.secure_url;
         },
       });
-
     }
   }
   isSubmmited=false;

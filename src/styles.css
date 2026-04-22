@@ -8,8 +8,13 @@
 }
 body{
   background-color: #FAFAFA;
+  font-family: 'Cairo', sans-serif !important;
 }
 .invalid{
   border-color: rgba(255, 54, 54, 0.877) ;
+}
+.fa-solid, .fa-regular, .fa-brands {
+  vertical-align: middle;
+  margin-left: 8px;
 }
 

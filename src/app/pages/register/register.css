@@ -1,10 +1,11 @@
 .form form{
   display: grid ;
-  grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 30px;
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
 label{
   display: flex;
   flex-direction: column;
@@ -25,13 +26,11 @@ input:hover,select:hover{
   grid-column: span 2;
 }
 @media (max-width: 762px){
+  .form form{
+    grid-template-columns: 1fr;
+  }
   .full{
     grid-column: span 1;
-  }
-}
-@media (min-width: 1400px){
-  .full{
-    grid-column: span 4;
   }
 }
 .content{
