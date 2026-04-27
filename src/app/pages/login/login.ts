@@ -25,6 +25,7 @@ export class Login {
         next:(res)=>{
           if(res.data&&res.data.token){
             localStorage.setItem('token',res.data.token);
+            localStorage.setItem('userName',this.loginForm.value.username!);
           }
           this.router.navigate(['/home']);
         },

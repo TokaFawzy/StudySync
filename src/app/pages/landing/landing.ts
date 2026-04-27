@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet, RouterLinkWithHref, Router } from '@angular/router';
 import { Header } from "../../components/header/header";
 import { Footer } from "../../components/footer/footer";
 @Component({
@@ -8,6 +8,12 @@ import { Footer } from "../../components/footer/footer";
   templateUrl: './landing.html',
   styleUrl: './landing.css',
 })
-export class Landing {
+export class Landing implements OnInit{
+  constructor(private router: Router) { }
 
+  ngOnInit() {
+    if(localStorage.getItem('userName')){
+      this.router.navigate(['/home']);
+    }
+  }
 }

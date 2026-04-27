@@ -1,4 +1,4 @@
-.login{
+.login,.logout{
   border: none !important;
 }
 .login:hover{
@@ -9,3 +9,7 @@
   background: linear-gradient(135deg, #6366F1 0%, #393B8B 100%) !important;
 }
 
+.logout:hover{
+  color: white !important;
+  background: linear-gradient(135deg, #EC1313 0%, #8E0B0B 100%) !important;
+}

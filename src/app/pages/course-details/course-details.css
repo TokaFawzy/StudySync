@@ -1,0 +1,16 @@
+a:hover{
+  background: linear-gradient(135deg,#00B894 50%,#005242 100%);
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+  padding: 5px;
+  transition: 0.3s;
+}
+@media(max-width:676px){
+  .nav li{
+    margin: 5px auto;
+  }
+  .main{
+    text-align: center;
+  }
+}

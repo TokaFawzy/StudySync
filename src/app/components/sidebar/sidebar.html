@@ -1,0 +1,40 @@
+
+<div class="offcanvas-lg offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+  <div class="offcanvas-header d-lg-none border-bottom ">
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"data-bs-target="#sidebarMenu" aria-label="Close"></button>
+    <h5 id="sidebarMenuLabel" class="fw-bold text-primary">StudySync</h5>
+  </div>
+
+  <div class="offcanvas-body p-0">
+    <div class="container-fluid d-flex justify-content-start align-items-center bg-white shadow-sm m-lg-3 rounded-4">
+      <div class="w-100">
+        <ul class="list-unstyled w-100 p-2" data-bs-dismiss="offcanvas">
+          <li routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+            <i class="fa-regular fa-house m-2"></i> الرئيسية
+          </li>
+          <li routerLink="/courses" routerLinkActive="active">
+            <i class="fa-solid fa-graduation-cap m-2"></i> المقررات الدراسية
+          </li>
+          <li routerLink="/assignments" routerLinkActive="active">
+            <i class="fa-solid fa-list-check m-2"></i> المهام والواجبات
+          </li>
+          <li routerLink="/exams" routerLinkActive="active">
+            <i class="fa-regular fa-rectangle-list m-2"></i> الاختبارات
+          </li>
+          <li routerLink="/notifications" routerLinkActive="active">
+            <i class="fa-regular fa-bell m-2"></i> الإشعارات
+          </li>
+          <li routerLink="/grades" routerLinkActive="active">
+            <i class="fa-solid fa-arrow-trend-up m-2"></i> ملف الدرجات
+          </li>
+          <li routerLink="/polls" routerLinkActive="active">
+            <i class="fa-solid fa-square-poll-vertical m-2"></i> التصويتات
+          </li>
+          <li routerLink="/announcements" routerLinkActive="active">
+            <i class="fa-solid fa-bullhorn m-2"></i> الإعلانات
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
