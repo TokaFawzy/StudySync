@@ -1,16 +1,71 @@
 <app-header></app-header>
 <div class="d-flex justify-content-between align-items-start container-fluid " style="background-color:#FAFAFA;">
   <app-sidebar></app-sidebar>
-  <div class="flex-grow-1 image text-white m-3">
-    <h5 class="m-2 p-2" style="font-size:24px;">اهلا بك {{userName}}</h5>
-    <p class="fw-normal m-2 p-2">لديك 2 مهام قادمة هذا الأسبوع و3 إعلانات جديدة</p>
-    <div class="d-flex justify-content-start align-items-start m-2 p-2 btns">
-      <button class="btn btn-light text-primary m-1">عرض المهام</button>
+  <div class="flex-grow-1 text-white m-3">
+    <div class="image">
+      <h5 class="m-2 p-2" style="font-size:24px;">اهلا بك {{userName}}</h5>
+      <p class="fw-normal m-2 p-2">لديك 2 مهام قادمة هذا الأسبوع و3 إعلانات جديدة</p>
+      <div class="d-flex justify-content-start align-items-start m-2 p-2 btns">
+      <button class="btn btn-light text-primary m-1" routerLink="/tasks">عرض المهام</button>
       <button class="btn text-white btnAnnoun m-1"> عرض الاعلانات</button>
     </div>
+    </div>
+    <div class="courses text-black ">
+      <h3 class=" fw-semibold m-2 p-2" style="font-size: 20px;">المقررات الدراسية</h3>
+      <div class="cards d-flex flex-wrap">
+        @for (course of courses; track course.id; let i = $index) {
+          <div class="card p-3 shadow-sm border-0" style="min-width: 300px;border-radius: 20px; background: white;">
+            <div class="row ">
+              <div class="text-primary rounded m-1"style="width:fit-content;background-color:rgba(16, 185, 129,8.2%)">
+                @if (course.level=="ONE") {
+                  <p class="mb-0 p-1" style="font-size: 14px;">المستوى الاول</p>
+                }@else if (course.level=="TWO") {
+                  <p class="mb-0 p-1" style="font-size: 14px;">المستوى الثانى</p>
+                }@else if (course.level=="THREE") {
+                  <p class="mb-0 p-1" style="font-size: 14px;">المستوى الثالث</p>
+                }@else if (course.level=="FOUR") {
+                  <p class="mb-0 p-1" style="font-size: 14px;">المستوى الرابع</p>
+                }
+              </div>
+            <div  class=" rounded m-1"style="width:fit-content;background-color:rgba(236, 185, 33, 9%);color:#E3AF11">
+              @if (course.semester=="FIRST") {
+                <p class="mb-0 p-1" style="font-size: 14px;">الفصل الاول </p>
+              }@else if(course.semester=="SECOND"){
+                <p class="mb-0 p-1" style="font-size: 14px;">الفصل الثاني </p>
+              }@else{
+                <p class="mb-0 p-1" style="font-size: 14px;">الفصل الصيفى </p>
+              }
+            </div>
+            </div>
+            <div class="d-flex align-items-start mb-3">
+              <div class="flex-grow-1 m-2">
+                <h5 class="fw-semibold text-dark mb-1" style="font-size: 16px;">{{ course.name }}</h5>
+                <p class="text-muted mb-0" style="font-size: 14px;">{{ course.code }}</p>
+                <p class="text-muted mb-0" style="font-size: 14px;">Dr/{{ course.professorName }}</p>
+              </div>
+              <div class="icon-container ms-auto d-flex align-items-center justify-content-center"
+                  [style.background]="backgroundColors[i % backgroundColors.length]"
+                  [style.border]="'1.5px solid ' + iconColor[i % iconColor.length]"
+                  style="width:55px; height:55px; border-radius:15px; flex-shrink: 0;">
+                <i class="fa-regular fa-calendar"
+                  [style.color]="iconColor[i % iconColor.length]"
+                  style="font-size: 24px;margin:2px auto;"></i>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end flex-column">
+              <button class="btn text-white px-4 py-2"
+                      [style.background]="'linear-gradient(135deg, #5D5FEF, #3B3DBB)'"
+                      style="border-radius: 12px; font-size: 14px; border: none;"
+                      (click)="enroll(course)"
+                      [disabled]="course.enrolled">
+                    {{course.enrolled?"تم التسجيل":" التسجيل في المقرر"}}
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
   </div>
-
 </div>
-
 <router-outlet></router-outlet>
 <app-footer></app-footer>

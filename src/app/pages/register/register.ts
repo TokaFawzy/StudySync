@@ -76,6 +76,7 @@ export class Register {
   }
   isSubmmited=false;
   hasError=false;
+  serverErrorsList: string[] = [];
   sendData(){
     this.hasError=false;
     this.isSubmmited=false;
@@ -110,18 +111,27 @@ export class Register {
           }
         )
       }
-      else{
-        const instructorPayload={...payload,instructorType: role}
-        this.AuthService.registerInstructor(instructorPayload).subscribe(
-          {
-            next:(res)=>{
-              this.isSubmmited=true;
-              this.crd.detectChanges();
-            },
-            error:(err)=>{
-              this.hasError=true;
-              this.crd.detectChanges();
-          }
+      else {
+      const instructorPayload = { ...payload, instructorType: role };
+      this.AuthService.registerInstructor(instructorPayload).subscribe({
+        next: (res) => {
+          this.isSubmmited = true;
+          this.serverErrorsList = [];
+          this.registerForm.reset();
+          this.crd.detectChanges();
+        },
+    error: (err) => {
+      this.hasError = true;
+      this.serverErrorsList = err.error?.errors || [err.error?.message || 'An error occurred'];
+      const allErrorsText = this.serverErrorsList.join(' ').toLowerCase();
+      if (allErrorsText.includes('username')) {
+        this.registerForm.get('userName')?.setErrors({ taken: true });
+      }
+      if (allErrorsText.includes('email')) {
+        this.registerForm.get('universityEmail')?.setErrors({ taken: true });
+      }
+      this.crd.detectChanges();
+    }
       })
       }
     }else{

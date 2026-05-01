@@ -8,4 +8,7 @@ export const routes: Routes = [
   {path:'home',loadComponent:()=>import('./pages/home/home').then(m=>m.Home)},
   {path:'courses',loadComponent:()=>import('./pages/courses/courses').then(m=>m.Courses)},
   {path:'courses/course-details',loadComponent:()=>import('./pages/course-details/course-details').then(m=>m.CourseDetails)},
+  {path:'tasks',loadComponent:()=>import('./pages/tasks/tasks').then(m=>m.Tasks)},
+  {path:'quiz',loadComponent:()=>import('./pages/quiz/quiz').then(m=>m.Quiz)},
+  
 ];

@@ -5,12 +5,16 @@
     <h3  class="fw-bold main" style="font: size 30px;"> هندسية البرمجيات متقدم</h3>
     <p class="main" style="color: #6B7280;font-size: 16px;">جميع المهام والتكليفات المطلوبة والمحتوى الخاص بمقرر المادة</p>
     <div class="m-4 p-3 bg-white rounded-3" >
-      <ul class="nav nav-pills">
+      <ul class="nav nav-tabs">
         <li class="nav-item">
-          <button class="nav-link active" aria-current="page" data-bs-toggle="pill" data-bs-target="#filesContent" type="button">الملفات</button>
+          <button class="nav-link active " aria-current="page" data-bs-toggle="pill" data-bs-target="#filesContent" type="button">الملفات</button>
         </li>
-        <li class="nav-item">
-          <button class="nav-link"data-bs-toggle="pill" data-bs-target="#tasksContent" type="button">المهام</button>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false" data-bs-target="#tasksContent" type="button">المهام</button>
+          <ul class="dropdown-menu">
+            <li><button class="btn-primary dropdown-item" data-bs-toggle="pill" data-bs-target="#tasksContentDone">المكتملة</button></li>
+            <li><button class="btn-primary dropdown-item" data-bs-toggle="pill" data-bs-target="#tasksContent">المعلقة</button></li>
+          </ul>
         </li>
         <li class="nav-item">
           <button class="nav-link"data-bs-toggle="pill" data-bs-target="#quizzesContent" type="button">الاختبارات</button>
@@ -56,6 +60,12 @@
                   </div>
                 </div>
               </div>
+              <a href="">تسليم المهمة</a>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tasksContentDone">
+            <div class="quiz-card">
+              <div class="p-5 text-center text-muted">لا يوجد حالياً</div>
             </div>
           </div>
           <div class="tab-pane fade" id="quizzesContent">

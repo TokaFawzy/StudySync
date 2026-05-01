@@ -23,4 +23,31 @@
   .btns{
     justify-content: center !important;;
   }
+  .courses h3{
+    text-align: center !important;
+  }
+}
+.btn-primary{
+  background: var(--main-primary);
+}
+.cards{
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr)) !important;
+  gap: 20px !important;
+  margin: 10px auto !important;
+}
+.card{
+  transition: 0.3s ease-in-out;
+}
+@media (max-width:776px){
+  .cards{
+    margin: 5px auto !important;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr)) !important;
+  }
+  .card{
+    margin: 5px auto !important;
+  }
+}
+.card:hover{
+  transform: translateY(-5px);
 }

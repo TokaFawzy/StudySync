@@ -1,0 +1,18 @@
+@media(max-width:676px){
+  .main{
+    text-align: center;
+  }
+}
+.btn-primary{
+  background: linear-gradient(135deg, #6366F1 0%, #393B8B 100%) !important;
+}
+.done{
+  border: 1px solid #06F347;
+  background: #CCFFDA;
+  opacity: 60%;
+}
+.fa-circle-check{
+  color: #00A501;
+  width: 50px !important;
+  height: 50px !important;
+}
