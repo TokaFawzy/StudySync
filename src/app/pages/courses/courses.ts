@@ -29,9 +29,6 @@ export class Courses {
       next: (res:any) => {
         this.enrolledCourses = res.data;
         this.cdr.detectChanges();
-        console.log(res);
-      },error: (err:any) => {
-        console.log(err);
       }
     });
   }

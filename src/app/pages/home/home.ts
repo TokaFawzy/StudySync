@@ -35,7 +35,6 @@ export class Home implements OnInit {
       next: (res:any) => {
         this.courses = res.data.map((c: any) => ({ ...c, enrolled: false }));
         this.cdr.detectChanges();
-        console.log(res);
       },
     });
   }
@@ -46,12 +45,10 @@ export class Home implements OnInit {
   }
     this.courseService.enrollInCourse(course.id).subscribe({
       next: (res:any) => {
-        console.log(res);
         course.enrolled=true;
         this.cdr.detectChanges();
       },
       error: (err:any) => {
-        console.log(err);
         course.enrolled=false;
         this.cdr.detectChanges();
       }
