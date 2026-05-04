@@ -25,9 +25,14 @@ export class Login {
         next:(res)=>{
           if(res.data&&res.data.token){
             localStorage.setItem('token',res.data.token);
+            localStorage.setItem('role',res.data.role);
             localStorage.setItem('userName',this.loginForm.value.username!);
           }
-          this.router.navigate(['/home']);
+          if(res.data.role==='STUDENT'){
+            this.router.navigate(['/home']);
+          }else if(res.data.role==='INSTRUCTOR'){
+            this.router.navigate(['/profCourses']);
+          }
         },
         error:(err)=>{
           this.hasError=true;

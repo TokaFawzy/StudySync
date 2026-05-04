@@ -25,3 +25,16 @@
   height: 50px !important;
 }
 
+.active-tab {
+  background-color: #5D5FEF !important;
+  color: white !important;
+  box-shadow: 0 4px 10px rgba(93, 95, 239, 0.3);
+}
+
+.w-fit-content {
+  width: fit-content;
+}
+
+.btn {
+  transition: all 0.3s ease;
+}

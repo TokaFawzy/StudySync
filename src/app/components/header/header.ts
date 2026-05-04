@@ -10,6 +10,7 @@ import { Router, RouterLink } from "@angular/router";
 })
 export class Header {
   userName=signal<string|null>(localStorage.getItem('userName'));
+  role=signal<string|null>(localStorage.getItem('role'));
   constructor(private router:Router){}
   isLoggedIn():boolean{
     return !!localStorage.getItem('token');

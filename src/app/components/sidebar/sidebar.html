@@ -1,10 +1,9 @@
-
+@if(role=='STUDENT'){
 <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
-  <div class="offcanvas-header d-lg-none border-bottom ">
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"data-bs-target="#sidebarMenu" aria-label="Close"></button>
-    <h5 id="sidebarMenuLabel" class="fw-bold text-primary">StudySync</h5>
-  </div>
-
+    <div class="offcanvas-header d-lg-none border-bottom ">
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"data-bs-target="#sidebarMenu" aria-label="Close"></button>
+      <h5 id="sidebarMenuLabel" class="fw-bold text-primary">StudySync</h5>
+    </div>
   <div class="offcanvas-body p-0">
     <div class="container-fluid d-flex justify-content-start align-items-center bg-white shadow-sm m-lg-3 rounded-4">
       <div class="w-100">
@@ -34,7 +33,9 @@
             <i class="fa-solid fa-bullhorn m-2"></i> الإعلانات
           </li>
         </ul>
+
       </div>
     </div>
   </div>
 </div>
+}

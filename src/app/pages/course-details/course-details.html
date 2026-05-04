@@ -1,80 +1,121 @@
 <app-header></app-header>
-<div class="d-flex justify-content-between align-items-start container-fluid "style="background-color:#FAFAFA">
-  <app-sidebar></app-sidebar>
-  <div class="flex-grow-1 m-3">
-    <h3  class="fw-bold main" style="font: size 30px;"> {{courseName}}</h3>
-    <p class="main" style="color: #6B7280;font-size: 16px;">جميع المهام والتكليفات المطلوبة والمحتوى الخاص بمقرر المادة</p>
-    <div class="m-4 p-3 bg-white rounded-3" >
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <button class="nav-link active " aria-current="page" data-bs-toggle="pill" data-bs-target="#filesContent" type="button">الملفات</button>
-        </li>
-        <li class="nav-item dropdown">
+<div
+  class="d-flex justify-content-between align-items-start container-fluid"
+  style="background-color: #fafafa"
+>
+  @if (role == 'STUDENT') {
+    <app-sidebar></app-sidebar>
+    <div class="flex-grow-1 m-3">
+      <h3 class="fw-bold main" style="font: size 30px">{{ courseName }}</h3>
+      <p class="main" style="color: #6b7280; font-size: 16px">
+        جميع المهام والتكليفات المطلوبة والمحتوى الخاص بمقرر المادة
+      </p>
+      <div class="m-4 p-3 bg-white rounded-3">
+        <ul class="nav nav-tabs">
           <li class="nav-item">
-          <button class="nav-link"data-bs-toggle="pill" data-bs-target="#tasksContent" type="button">المهام</button>
-        </li>
+            <button
+              class="nav-link active"
+              aria-current="page"
+              data-bs-toggle="pill"
+              data-bs-target="#filesContent"
+              type="button"
+            >
+              الملفات
+            </button>
+          </li>
+          <li class="nav-item dropdown"></li>
           <li class="nav-item">
-          <button class="nav-link"data-bs-toggle="pill" data-bs-target="#quizzesContent" type="button">الاختبارات</button>
-        </li>
-      </ul>
-      <div class="tab-content ">
+            <button
+              class="nav-link"
+              data-bs-toggle="pill"
+              data-bs-target="#tasksContent"
+              type="button"
+            >
+              المهام
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link"
+              data-bs-toggle="pill"
+              data-bs-target="#quizzesContent"
+              type="button"
+            >
+              الاختبارات
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content">
           <div class="tab-pane fade show active" id="filesContent">
-          <table class="table p-2 table-hover mt-4 align-middle">
-            <thead>
-              <tr class="table-secondary align-middle mt-2">
-                <th scope="col">المحتوى</th>
-                <th scope="col">النوع</th>
-                <th scope="col">رفع بواسطة</th>
-                <th scope="col">تاريخ الرفع</th>
-                <th scope="col">تحميل/فتح</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (material of courseMaterials; track material.id; let i = $index) {
-              <tr>
-                <td>
-                  <p >{{material.title}}  </p>
-                </td>
-                <td>
-                    <i class="fa-solid me-2" [ngClass]="getFileIcon(material.url, material.type)"></i>
-                </td>
-                <td>{{material.uploadedByName}} </td>
-                <td>
-                    {{material.createdAt | date:'dd-MM-yyyy'}}
-                </td>
-                <td>
-                  @if (material.type=="FILE") {
-                    <a [href]="material.url" target="_blank" download class="btn text-white text-center shadow-sm w-75" style="background:var(--purple)">
-                        <i class="fa-solid fa-download me-1 "></i>
-                        تحميل
-                      </a>
-                    }@else {
-                      <a [href]="material.url" target="_blank" class="btn text-white text-center shadow-sm w-75" style="background:var(--purple)">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <table class="table p-2 table-hover mt-4 align-middle">
+              <thead>
+                <tr class="table-secondary align-middle mt-2">
+                  <th scope="col">المحتوى</th>
+                  <th scope="col">النوع</th>
+                  <th scope="col">رفع بواسطة</th>
+                  <th scope="col">تاريخ الرفع</th>
+                  <th scope="col">تحميل/فتح</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (material of courseMaterials; track material.id; let i = $index) {
+                  <tr>
+                    <td class="mb-0">
+                      <p>{{ material.title }}</p>
+                    </td>
+                    <td>
+                      <i class="fa-solid" [ngClass]="getFileIcon(material.url, material.type)"></i>
+                    </td>
+                    <td>{{ material.uploadedByName }}</td>
+                    <td>
+                      {{ material.createdAt | date: 'dd-MM-yyyy' }}
+                    </td>
+                    <td>
+                      @if (material.type == 'FILE') {
+                        <a
+                          [href]="material.url"
+                          target="_blank"
+                          download
+                          class="btn text-white text-center shadow-sm w-75"
+                          style="background: var(--purple)"
+                        >
+                          <i class="fa-solid fa-download me-1"></i>
+                          تحميل
+                        </a>
+                      } @else {
+                        <a
+                          [href]="material.url"
+                          target="_blank"
+                          class="btn text-white text-center shadow-sm w-75"
+                          style="background: var(--purple)"
+                        >
+                          <i class="fa-solid fa-arrow-up-right-from-square"></i>
                           فتح الرابط
                         </a>
-                  }
-                </td>
-              </tr>
-              }@empty {
+                      }
+                    </td>
+                  </tr>
+                } @empty {
                   <tr>
                     <td colspan="5" class="text-center p-5 text-muted">
                       لا يوجد محتوى متاح حالياً
                     </td>
                   </tr>
                 }
-            </tbody>
-          </table>
-
+              </tbody>
+            </table>
           </div>
           <div class="tab-pane fade" id="tasksContent">
             <p class="m-2 p-1 fw-bold">المهام المتبقية</p>
-            <div class="task-card  m-3 d-flex justify-content-between align-items-end shadow-sm rounded-3 p-2" style="background-color:#FAFAFA">
+            <div
+              class="task-card m-3 d-flex justify-content-between align-items-end shadow-sm rounded-3 p-2"
+              style="background-color: #fafafa"
+            >
               <div class="m-2">
                 <h5 class="fw-bold">حل تمارين الفصل التاني</h5>
                 <p class="text-secondary">هندسة البرمجيات متقدم</p>
-                <div class="info d-flex justify-content-between ">
-                  <div class="date" style="font-size:14px">
+                <div class="info d-flex justify-content-between">
+                  <div class="date" style="font-size: 14px">
                     <span class="text-primary m-1">
                       <i class="fa-regular fa-calendar"></i>
                       27-4-2026
@@ -89,12 +130,15 @@
               <a class="upload-task" href="">تسليم المهمة</a>
             </div>
             <p class="m-2 p-1 fw-bold">مهام تم تسليمها</p>
-            <div class="task-card  m-3 d-flex justify-content-between align-items-center shadow-sm rounded-3 p-2 done" style="background-color:#FAFAFA">
+            <div
+              class="task-card m-3 d-flex justify-content-between align-items-center shadow-sm rounded-3 p-2 done"
+              style="background-color: #fafafa"
+            >
               <div class="m-2">
                 <h5 class="fw-bold">حل تمارين الفصل الرابع</h5>
-                <p class="text-secondary">أمن المعلومات  </p>
-                <div class="info d-flex justify-content-between ">
-                  <div class="date" style="font-size:14px">
+                <p class="text-secondary">أمن المعلومات</p>
+                <div class="info d-flex justify-content-between">
+                  <div class="date" style="font-size: 14px">
                     <span class="text-primary m-1">
                       <i class="fa-regular fa-calendar"></i>
                       25-4-2026
@@ -110,7 +154,6 @@
                 <i class="fa-solid fa-circle-check fa-2xl"></i>
               </div>
             </div>
-
           </div>
 
           <div class="tab-pane fade" id="quizzesContent">
@@ -118,9 +161,369 @@
               <div class="p-5 text-center text-muted">لا يوجد اختبارات حالياً</div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="flex-grow-1 m-3">
+      <h3 class="fw-bold main" style="font: size 30px">{{ courseName }}</h3>
+      <p class="main" style="color: #6b7280; font-size: 16px">ادارة كل مايخص المقرر</p>
+      <div class="container mt-4">
+        <div
+          class="d-flex gap-3 mb-4 bg-white p-2 rounded-4 shadow-sm w-fit-content"
+          style="width: fit-content; border: 1px solid #eee"
+        >
+        <button
+            class="btn d-flex align-items-center gap-2 px-4 py-2 rounded-3 shadow-sm"
+            [class.active-tab]="activeTab === 'materials'"
+            [class.text-muted]="activeTab !== 'materials'"
+            (click)="setActiveTab('materials')"
+          >
+            <i class="fa-solid fa-folder-open"></i> مصادر
+            <span
+              class="badge rounded-pill"
+              [ngClass]="activeTab === 'materials' ? 'bg-white text-primary' : 'bg-light text-dark'"
+              >{{ courseMaterials.length }}</span
+            >
+          </button>
+          <button
+            class="btn border-0 d-flex align-items-center gap-2 px-4 py-2"
+            [class.active-tab]="activeTab === 'tasks'"
+            [class.text-muted]="activeTab !== 'tasks'"
+            (click)="setActiveTab('tasks')"
+          >
+            <i class="fa-regular fa-clipboard"></i> مهام
+            <span
+              class="badge rounded-pill"
+              [ngClass]="activeTab === 'tasks' ? 'bg-white text-primary' : 'bg-light text-dark'"
+              >{{ courseTasks.length }}</span
+            >
+          </button>
+          
+        </div>
+        <div [ngSwitch]="activeTab">
+          <div *ngSwitchCase="'materials'">
+            <div class="d-flex justify-content-end mb-3">
+              <button
+                class="btn text-white px-4 py-2 rounded-3 shadow-sm"
+                data-bs-toggle="modal"
+                data-bs-target="#addMaterialModal"
+                style="background-color: #5d5fef"
+                (click)="resetForm()"
+              >
+                <i class="fa-solid fa-plus me-2"></i> اضافة مصادر
+              </button>
+            </div>
+            <div class="materials-list d-flex flex-column gap-3">
+              @for (item of courseMaterials; track item.id) {
+                <div
+                  class="material-card d-flex align-items-center p-3 bg-white border rounded-4 shadow-sm justify-content-between"
+                >
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="icon-box rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 45px; height: 45px"
+                      [style.background-color]="item.type === 'LINK' ? '#E6F8F1' : '#E8F0FE'"
+                    >
+                      <i
+                        class="fa-solid"
+                        [ngClass]="getFileIcon(item.url, item.type)"
+                        style="font-size: 18px"
+                      ></i>
+                    </div>
+
+                    <div>
+                      <div class="d-flex align-items-center gap-2">
+                        <h6 class="m-2 fw-bold text-dark" style="font-size: 15px">
+                          {{ item.title }}
+                        </h6>
+
+                        <span
+                          class="badge rounded-pill fw-bold"
+                          [ngClass]="
+                            item.type === 'FILE'
+                              ? 'bg-primary-subtle text-primary border-primary-subtle'
+                              : 'bg-success-subtle text-success border-success-subtle'
+                          "
+                          style="font-size: 9px; padding: 3px 8px; border: 1px solid"
+                        >
+                          {{ item.type }}
+                        </span>
+                      </div>
+                      <div class="text-muted m-1" style="font-size: 13px">
+                        {{ item.createdBy }}
+                        {{ item.createdAt | date: 'dd-MM-yyyy' }}
+                        <a
+                          [href]="item.url"
+                          target="_blank"
+                          class="text-decoration-none fw-bold m-1"
+                          style="color: #5d5fef"
+                        >
+                          فتح الملف
+                          <i
+                            class="fa-solid fa-arrow-up-right-from-square"
+                            style="font-size: 10px"
+                          ></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="actions d-flex gap-3 text-secondary" style="font-size: 14px">
+                    <span
+                      class="action-link"
+                      style="cursor: pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#addMaterialModal"
+                      (click)="prepareEdit(item)"
+                    >
+                      <i class="fa-regular fa-pen-to-square me-1"></i> تعديل
+                    </span>
+
+                    <span
+                      class="action-link text-danger"
+                      style="cursor: pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteConfirmModal"
+                      (click)="prepareDelete(item.id)"
+                    >
+                      <i class="fa-regular fa-trash-can me-1"></i> مسح
+                    </span>
+                  </div>
+                </div>
+              } @empty {
+                <div class="text-center py-5">
+                  <p class="text-muted">لا يوجد ملفات متاحة حالياً.</p>
+                </div>
+              }
+            </div>
+          </div>
+          <div *ngSwitchCase="'tasks'">
+            <div class="d-flex justify-content-end mb-3">
+              <button
+                class="btn text-white px-4 py-2 rounded-3 shadow-sm"
+                style="background-color: #5d5fef"
+                data-bs-toggle="modal"
+                data-bs-target="#addTaskModal"
+                (click)="resetForm()"
+              >
+                <i class="fa-solid fa-plus me-2"></i> اضافة مهمة
+              </button>
+            </div>
+
+            <div class="tasks-list d-flex flex-column gap-3">
+              @for (task of courseTasks; track task.id) {
+                <div class="material-card d-flex align-items-center p-3 bg-white border rounded-4 shadow-sm justify-content-between">
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="icon-box rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 45px; height: 45px; background-color: #fdf2f2"
+                    >
+                      <i class="fa-solid fa-list-check text-danger" style="font-size: 18px"></i>
+                    </div>
+                    <div>
+                      <h6 class="m-2 fw-bold text-dark" style="font-size: 15px">
+                        {{ task.title }}
+                      </h6>
+                      @if (task.description) {
+                        <p class="small text-secondary m-1 px-2 mb-2" style="border-right: 2px solid #ddd;">{{ task.description }}</p>
+                      }
+                      <div class="d-flex flex-wrap gap-3 m-1 mt-2 align-items-center" style="font-size: 12px">
+                        <span class="text-muted">
+                           <i class="fa-regular fa-user me-1"></i> {{ task.assignedBy }} 
+                        </span>
+                        <span class="text-muted">
+                           <i class="fa-regular fa-calendar-check me-1"></i> {{ task.createdAt | date: 'dd-MM-yyyy' }}
+                        </span>
+                        <span class="text-danger fw-bold align-self-center">
+                          <i class="fa-regular fa-clock me-1"></i>
+                        اخر موعد للتسليم:
+                          <span style="margin: 1px 0px;">
+                            {{ task.deadline | date: 'dd-MM-yyyy hh:mm a' }}
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="actions d-flex gap-3 text-secondary" style="font-size: 14px">
+                    <span
+                      class="action-link"
+                      style="cursor: pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#addTaskModal"
+                      (click)="prepareEditTask(task)"
+                    >
+                      <i class="fa-regular fa-pen-to-square me-1"></i> تعديل
+                    </span>
+
+                    <span
+                      class="action-link text-danger"
+                      style="cursor: pointer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteConfirmModal"
+                      (click)="prepareDelete(task.id, 'TASK')"
+                    >
+                      <i class="fa-regular fa-trash-can me-1"></i> مسح
+                    </span>
+                  </div>
+                </div>
+              } @empty {
+                <div class="text-center py-5 bg-white rounded-4 border shadow-sm">
+                  <i class="fa-solid fa-list-check fa-3x text-light mb-3"></i>
+                  <p class="text-muted">لا يوجد مهام مضافة حالياً لهذا المقرر.</p>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title fw-bold">{{ isTaskEditMode ? 'تعديل المهمة' : 'إضافة مهمة جديدة' }}</h5>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitTask()" #taskForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label small fw-bold">العنوان *</label>
+            <input
+              type="text"
+              class="form-control rounded-3"
+              name="title"
+              [(ngModel)]="newTask.title"
+              required
+              maxlength="255"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold">الوصف</label>
+            <textarea
+              class="form-control rounded-3"
+              name="description"
+              [(ngModel)]="newTask.description"
+              rows="3"
+              maxlength="4000"
+            ></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label small fw-bold">الموعد النهائي *</label>
+            <input
+              type="datetime-local"
+              class="form-control rounded-3"
+              name="deadline"
+              [(ngModel)]="newTask.deadline"
+              required
+            />
+          </div>
+
+          <div class="modal-footer border-0 px-0 pb-0">
+            <button type="button" class="btn btn-light rounded-3 px-4" data-bs-dismiss="modal">
+              إلغاء
+            </button>
+            <button
+              type="submit"
+              class="btn text-white rounded-3 px-4"
+              style="background-color: #5d5fef"
+              [disabled]="!taskForm.valid"
+            >
+              {{ isTaskEditMode ? 'حفظ التعديلات' : 'حفظ المهمة' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addMaterialModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 rounded-4 shadow">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title fw-bold">{{ isEditMode ? 'تعديل المصدر' : 'اضافة مصدر جديد' }}</h5>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="submitMaterial()" #materialForm="ngForm">
+          <div class="mb-3">
+            <label class="form-label small fw-bold">العنوان *</label>
+            <input
+              type="text"
+              class="form-control rounded-3"
+              name="title"
+              [(ngModel)]="newMaterial.title"
+              required
+            />
+          </div>
+
+          <div class="mb-3" *ngIf="!isEditMode">
+            <label class="form-label small fw-bold">النوع *</label>
+            <select
+              class="form-select rounded-3"
+              name="type"
+              [(ngModel)]="newMaterial.type"
+              required
+            >
+              <option value="FILE">ملف</option>
+              <option value="LINK">رابط</option>
+            </select>
+          </div>
+          <div class="mb-3" *ngIf="!isEditMode && newMaterial.type === 'LINK'">
+            <label class="form-label small fw-bold">رابط</label>
+            <input
+              type="url"
+              class="form-control rounded-3"
+              name="url"
+              [(ngModel)]="newMaterial.url"
+              placeholder="https://..."
+            />
+          </div>
+
+          <div class="mb-3" *ngIf="!isEditMode && newMaterial.type === 'FILE'">
+            <label class="form-label small fw-bold">رفع ملف</label>
+            <input type="file" class="form-control rounded-3" (change)="onFileSelected($event)" />
+          </div>
+
+          <div class="modal-footer border-0 px-0 pb-0">
+            <button type="button" class="btn btn-light rounded-3 px-4" data-bs-dismiss="modal">
+              إلغاء
+            </button>
+            <button
+              type="submit"
+              class="btn text-white rounded-3 px-4"
+              style="background-color: #5d5fef"
+              [disabled]="!materialForm.valid"
+            >
+              {{ isEditMode ? 'حفظ التعديلات' : 'حفظ المصدر' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content border-0 rounded-4 shadow">
+      <div class="modal-body text-center p-4">
+        <div class="text-danger mb-3">
+          <i class="fa-solid fa-circle-exclamation fa-3x"></i>
+        </div>
+        <h5 class="fw-bold">هل أنت متأكد؟</h5>
+        <p class="text-muted small">سيتم حذف هذا المحتوى نهائياً ولا يمكن التراجع عن هذه الخطوة.</p>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="button" class="btn btn-light w-50 rounded-3" data-bs-dismiss="modal">
+            إلغاء
+          </button>
+          <button type="button" class="btn btn-danger w-50 rounded-3" (click)="executeDelete()">
+            حذف الآن
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 <app-footer></app-footer>
-

@@ -1,0 +1,23 @@
+.image{
+  background-image: url("/home.svg");
+  background-position: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.modal.show {
+  display: block;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal-dialog {
+  margin-top: 10%;
+}
+.add{
+  transition: 0.3s ease-in-out;
+}
+.add:hover{
+  border: 1px dashed #6366F1 !important;
+  color: #6366F1 !important;
+}

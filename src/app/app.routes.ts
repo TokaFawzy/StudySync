@@ -9,4 +9,6 @@ export const routes: Routes = [
   {path:'courses',loadComponent:()=>import('./pages/courses/courses').then(m=>m.Courses)},
   {path:'courses/course-details/:courseId',loadComponent:()=>import('./pages/course-details/course-details').then(m=>m.CourseDetails)},
   {path:'tasks',loadComponent:()=>import('./pages/tasks/tasks').then(m=>m.Tasks)},
-  {path:'quiz',loadComponent:()=>import('./pages/quiz/quiz').then(m=>m.Quiz)},];
+  {path:'quiz',loadComponent:()=>import('./pages/quiz/quiz').then(m=>m.Quiz)},
+  {path:'profCourses',loadComponent:()=>import('./pages/prof-courses/prof-courses').then(m=>m.ProfCourses)},
+];

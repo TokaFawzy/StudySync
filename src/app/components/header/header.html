@@ -1,15 +1,17 @@
 <nav class="navbar navbar-light bg-white border-bottom shadow-sm w-100">
   <div class="container-fluid">
     <div class="d-flex justify-content-between align-items-center">
-      <button
-      class="btn d-lg-none border-0"
-      type="button"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#sidebarMenu"
-      *ngIf="isLoggedIn()"
-      >
-    <i class="fa-solid fa-bars"></i>
-      </button>
+      @if(role()=='STUDENT'){
+        <button
+        class="btn d-lg-none border-0"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sidebarMenu"
+        *ngIf="isLoggedIn()"
+        >
+      <i class="fa-solid fa-bars"></i>
+        </button>
+      }
       <img
         src="Logo.svg"
         alt=""
