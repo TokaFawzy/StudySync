@@ -1,0 +1,25 @@
+@media(max-width:676px){
+  .main{
+    text-align: center;
+  }
+  .task-card ,.task-card.Done{
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  .not{
+    margin-top: 5px !important;
+  }
+  .button{
+    margin: 5px auto !important;
+    align-self: center;
+  }
+}
+.task-card{
+  transition: 0.3s ease-in-out;
+  &:hover{
+    transform: translateY(-4px);
+  }
+}
+.task-card.Done{
+  border: 1px solid rgba(202, 21, 21, 0.836);
+}

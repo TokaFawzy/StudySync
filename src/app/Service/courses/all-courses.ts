@@ -1,3 +1,4 @@
+import { CourseDetails } from './../../pages/course-details/course-details';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -15,6 +16,12 @@ export class AllCourses {
   }
   getCourses() {
     return this.http.get(`${this.coursesUrl}/courses`, { headers: this.getHeaders()});
+  }
+  getCourseById(id:any){
+    return this.http.get(`${this.coursesUrl}/courses/${id}`, { headers: this.getHeaders()});
+  }
+  getCourseMaterials(courseId: string) {
+  return this.http.get(`${this.coursesUrl}/courses/${courseId}/materials`, { headers:this.getHeaders() });
   }
   enrollInCourse(id:any){
     const headers = this.getHeaders();

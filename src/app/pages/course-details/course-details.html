@@ -2,7 +2,7 @@
 <div class="d-flex justify-content-between align-items-start container-fluid "style="background-color:#FAFAFA">
   <app-sidebar></app-sidebar>
   <div class="flex-grow-1 m-3">
-    <h3  class="fw-bold main" style="font: size 30px;"> هندسية البرمجيات متقدم</h3>
+    <h3  class="fw-bold main" style="font: size 30px;"> {{courseName}}</h3>
     <p class="main" style="color: #6B7280;font-size: 16px;">جميع المهام والتكليفات المطلوبة والمحتوى الخاص بمقرر المادة</p>
     <div class="m-4 p-3 bg-white rounded-3" >
       <ul class="nav nav-tabs">
@@ -10,39 +10,65 @@
           <button class="nav-link active " aria-current="page" data-bs-toggle="pill" data-bs-target="#filesContent" type="button">الملفات</button>
         </li>
         <li class="nav-item dropdown">
-          <button class="nav-link dropdown-toggle"data-bs-toggle="dropdown" aria-expanded="false" data-bs-target="#tasksContent" type="button">المهام</button>
-          <ul class="dropdown-menu">
-            <li><button class="btn-primary dropdown-item" data-bs-toggle="pill" data-bs-target="#tasksContentDone">المكتملة</button></li>
-            <li><button class="btn-primary dropdown-item" data-bs-toggle="pill" data-bs-target="#tasksContent">المعلقة</button></li>
-          </ul>
+          <li class="nav-item">
+          <button class="nav-link"data-bs-toggle="pill" data-bs-target="#tasksContent" type="button">المهام</button>
         </li>
-        <li class="nav-item">
+          <li class="nav-item">
           <button class="nav-link"data-bs-toggle="pill" data-bs-target="#quizzesContent" type="button">الاختبارات</button>
         </li>
       </ul>
       <div class="tab-content ">
           <div class="tab-pane fade show active" id="filesContent">
-            <div class="file-card m-3 d-flex justify-content-between align-items-end shadow-sm rounded-3 p-2" style="background-color:#FAFAFA">
-              <div class="m-2">
-                <h5 class="fw-bold">ملف المحاضرة الخامسة</h5>
-                <p class="text-secondary">هندسة البرمجيات متقدم</p>
-                <div class="info d-flex justify-content-between ">
-                  <div class="date" style="font-size:14px">
-                    <span class="text-primary m-1">
-                      <i class="fa-regular fa-calendar"></i>
-                      27-4-2026
-                    </span>
-                    <span class="text-warning">
-                      <i class="fa-regular fa-clock"></i>
-                      10:00 ص
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <a href="">عرض الملف</a>
-            </div>
+          <table class="table p-2 table-hover mt-4 align-middle">
+            <thead>
+              <tr class="table-secondary align-middle mt-2">
+                <th scope="col">المحتوى</th>
+                <th scope="col">النوع</th>
+                <th scope="col">رفع بواسطة</th>
+                <th scope="col">تاريخ الرفع</th>
+                <th scope="col">تحميل/فتح</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (material of courseMaterials; track material.id; let i = $index) {
+              <tr>
+                <td>
+                  <p >{{material.title}}  </p>
+                </td>
+                <td>
+                    <i class="fa-solid me-2" [ngClass]="getFileIcon(material.url, material.type)"></i>
+                </td>
+                <td>{{material.uploadedByName}} </td>
+                <td>
+                    {{material.createdAt | date:'dd-MM-yyyy'}}
+                </td>
+                <td>
+                  @if (material.type=="FILE") {
+                    <a [href]="material.url" target="_blank" download class="btn text-white text-center shadow-sm w-75" style="background:var(--purple)">
+                        <i class="fa-solid fa-download me-1 "></i>
+                        تحميل
+                      </a>
+                    }@else {
+                      <a [href]="material.url" target="_blank" class="btn text-white text-center shadow-sm w-75" style="background:var(--purple)">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                          فتح الرابط
+                        </a>
+                  }
+                </td>
+              </tr>
+              }@empty {
+                  <tr>
+                    <td colspan="5" class="text-center p-5 text-muted">
+                      لا يوجد محتوى متاح حالياً
+                    </td>
+                  </tr>
+                }
+            </tbody>
+          </table>
+
           </div>
           <div class="tab-pane fade" id="tasksContent">
+            <p class="m-2 p-1 fw-bold">المهام المتبقية</p>
             <div class="task-card  m-3 d-flex justify-content-between align-items-end shadow-sm rounded-3 p-2" style="background-color:#FAFAFA">
               <div class="m-2">
                 <h5 class="fw-bold">حل تمارين الفصل التاني</h5>
@@ -60,14 +86,33 @@
                   </div>
                 </div>
               </div>
-              <a href="">تسليم المهمة</a>
+              <a class="upload-task" href="">تسليم المهمة</a>
             </div>
-          </div>
-          <div class="tab-pane fade" id="tasksContentDone">
-            <div class="quiz-card">
-              <div class="p-5 text-center text-muted">لا يوجد حالياً</div>
+            <p class="m-2 p-1 fw-bold">مهام تم تسليمها</p>
+            <div class="task-card  m-3 d-flex justify-content-between align-items-center shadow-sm rounded-3 p-2 done" style="background-color:#FAFAFA">
+              <div class="m-2">
+                <h5 class="fw-bold">حل تمارين الفصل الرابع</h5>
+                <p class="text-secondary">أمن المعلومات  </p>
+                <div class="info d-flex justify-content-between ">
+                  <div class="date" style="font-size:14px">
+                    <span class="text-primary m-1">
+                      <i class="fa-regular fa-calendar"></i>
+                      25-4-2026
+                    </span>
+                    <span class="text-warning">
+                      <i class="fa-regular fa-clock"></i>
+                      10:00 ص
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="">
+                <i class="fa-solid fa-circle-check fa-2xl"></i>
+              </div>
             </div>
+
           </div>
+
           <div class="tab-pane fade" id="quizzesContent">
             <div class="quiz-card">
               <div class="p-5 text-center text-muted">لا يوجد اختبارات حالياً</div>

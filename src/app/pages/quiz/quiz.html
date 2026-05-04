@@ -2,6 +2,75 @@
 <div class="d-flex justify-content-between align-items-start container-fluid " style="background-color:#FAFAFA;">
   <app-sidebar></app-sidebar>
   <div class="flex-grow-1 m-3">
+    <h3  class="fw-bold main" style="font: size 30px;"> الاختبارات</h3>
+    <p class="main" style="color: #6B7280;font-size: 16px;"> روابط جميع الاختبارات المطلوبة</p>
+    <p class="m-2 p-2 fw-bold">الاختبارات المتبقية</p>
+    <div class="task-card  m-3 d-flex justify-content-between align-items-center shadow-sm rounded-3 p-2 done" style="background-color:white">
+        <div class="m-2 ">
+          <h5 class="fw-bold"> كويز 1 فى  هندسة البرمجيات متقدم </h5>
+          <p class="text-secondary"> كويز على السكاشن مدة الكويز 20 دقيقة </p>
+          <div class="info d-flex justify-content-between ">
+            <div class="date" style="font-size:14px">
+              <span class="text-secondary m-2">
+                هندسة البرمجيات متقدم
+              </span>
+              <span class="text-primary m-2">
+                <i class="fa-regular fa-calendar"></i>
+                25-4-2026
+              </span>
+              <span class="text-warning m-2">
+                <i class="fa-regular fa-clock"></i>
+                10:00 ص
+              </span>
+              <span class="text-secondary m-2">
+                <i class="fa-regular fa-user"></i>
+                ب.بسمة الشرقاوى
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="button d-flex align-self-end mb-2">
+          <button href="" target="_blank" type="button" class="btn btn-primary shadow-sm" style="background:var(--main-primary)">
+            <i class="fa-solid fa-link"></i>
+            رابط الاختبار
+          </button>
+        </div>
+    </div>
+    <p class="m-2 p-2 fw-bold">الاختبارات الغير متاحة</p>
+    <div class="task-card Done  m-3 d-flex justify-content-between align-items-center shadow-sm rounded-3 p-2 " style="background-color:white">
+        <div class="m-2 ">
+          <h5 class="fw-bold"> كويز 1 نظرية الحاسبات </h5>
+          <p class="text-secondary"> كويز على السكاشن مدة الكويز 20 دقيقة فقط</p>
+          <div class="info d-flex justify-content-between ">
+            <div class="date" style="font-size:14px">
+              <span class="text-secondary m-2">
+                نظرية الحاسبات
+              </span>
+              <span class="text-primary m-2">
+                <i class="fa-regular fa-calendar"></i>
+                25-4-2026
+              </span>
+              <span class="text-warning m-2">
+                <i class="fa-regular fa-clock"></i>
+                10:00 ص
+              </span>
+              <span class="text-secondary m-2">
+                <i class="fa-regular fa-user"></i>
+                ب. هاجر
+              </span>
+              <span  class="not rounded-3 bg-danger text-white text-center m-2" style="opacity:0.8;padding:0 2px ">
+                غير متاح
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="button d-flex align-self-end mb-2">
+          <button href="" target="_blank" type="button" class="btn btn-secondary shadow-sm" disabled >
+            <i class="fa-solid fa-link"></i>
+            رابط الاختبار
+          </button>
+        </div>
+    </div>
   </div>
 </div>
 <app-footer></app-footer>
