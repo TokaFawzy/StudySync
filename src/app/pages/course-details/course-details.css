@@ -38,3 +38,8 @@
 .btn {
   transition: all 0.3s ease;
 }
+@media (max-width: 767px) {
+  .btnBar {
+    margin-inline: auto !important;
+  }
+}

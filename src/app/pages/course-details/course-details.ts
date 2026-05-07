@@ -36,7 +36,6 @@ export class CourseDetails {
     this.courseService.getCourseById(this.id).subscribe({
       next: (res:any) => {
         this.courseName=res.data.name;
-        console.log(res);
         this.cdr.detectChanges();
       },error:(err)=>{
         console.log(err);
@@ -47,7 +46,6 @@ export class CourseDetails {
     this.courseService.getCourseMaterials(id).subscribe({
       next: (res:any) => {
         this.courseMaterials = res.data;
-        console.log(this.courseMaterials);
         this.cdr.detectChanges();
       },error:(err)=>{
         console.log(err);
@@ -149,18 +147,22 @@ export class CourseDetails {
   prepareEditTask(task: any) {
     this.isTaskEditMode = true;
     this.taskToEditId = task.id;
-    
-    // تحويل التاريخ لصيغة تناسب حقل datetime-local
     const date = new Date(task.deadline);
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
     const formattedDeadline = date.toISOString().slice(0, 16);
 
-    this.newTask = { title: task.title, description: task.description || '', deadline: formattedDeadline };
+    this.newTask = {
+      title: task.title,
+      description: task.description || '',
+      deadline: formattedDeadline,
+      maxGrade: task.maxGrade
+    };
   }
   newTask = {
     title: '',
     description: '',
-    deadline: ''
+    deadline: '',
+    maxGrade:0
   };
   newMaterial = {
     title: '',
@@ -176,17 +178,14 @@ export class CourseDetails {
 submitMaterial() {
   if (!this.id) return;
   if (this.isEditMode && this.materialToEditId) {
-    // منطق التعديل: إرسال JSON يحتوي على العنوان فقط كما هو مطلوب في الـ API
     const updateData = { title: this.newMaterial.title };
     this.instructorService.updateMaterial(this.id, this.materialToEditId, updateData).subscribe({
       next: (response: any) => {
-        console.log("Material updated successfully:", response);
         this.handleSuccess('#addMaterialModal');
       },
       error: (err) => this.handleError(err)
     });
   } else {
-    // منطق الإضافة: إرسال FormData للملفات أو الروابط
     const formData = new FormData();
     formData.append('title', this.newMaterial.title);
     formData.append('type', this.newMaterial.type);
@@ -195,7 +194,6 @@ submitMaterial() {
     } else if (this.newMaterial.type === 'LINK') {
       formData.append('url', this.newMaterial.url);
     }
-
     this.instructorService.addMaterial(this.id, formData).subscribe({
       next: (response: any) => {
         console.log("Material added successfully:", response);
@@ -241,7 +239,7 @@ private handleError(err: any) {
   alert('حدث خطأ. يرجى التأكد من البيانات والمحاولة مرة أخرى.');
 }
   resetForm() {
-    this.newTask = { title: '', description: '', deadline: '' };
+    this.newTask = { title: '', description: '', deadline: '',maxGrade:0};
     this.newMaterial = { title: '', type: 'FILE', url: '' };
     this.selectedFile = null;
     this.isEditMode = false;
@@ -251,5 +249,5 @@ private handleError(err: any) {
     const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
     if (fileInput) fileInput.value = '';
   }
-  
+
 }

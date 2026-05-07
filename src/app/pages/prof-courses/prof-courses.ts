@@ -35,7 +35,6 @@ export class ProfCourses implements OnInit {
     this.getInstructorCourses();
     this.getAllInstructors();
   }
-
   getInstructorCourses() {
     this.instructorService.getInstructorCourses().subscribe({
       next: (res: any) => {
@@ -45,7 +44,6 @@ export class ProfCourses implements OnInit {
       error: (err) => console.log(err)
     });
   }
-
   getAllInstructors() {
     this.instructorService.allInstructors().subscribe({
       next: (res: any) => {
@@ -73,7 +71,6 @@ export class ProfCourses implements OnInit {
   }
 
   createCourse() {
-    console.log('Sending Course Data:', this.newCourse);
     this.instructorService.createCourse(this.newCourse).subscribe({
       next: (res: any) => {
         this.getInstructorCourses();

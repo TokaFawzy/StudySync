@@ -21,3 +21,8 @@
   border: 1px dashed #6366F1 !important;
   color: #6366F1 !important;
 }
+@media (max-width:1400px) {
+  .card{
+    margin-inline: auto !important;
+  }
+}
