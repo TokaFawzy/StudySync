@@ -43,4 +43,7 @@ export class InstructorService {
   deleteTask(courseId: string, taskId: string) {
     return this.http.delete(`${this.baseUrl}/courses/${courseId}/tasks/${taskId}`, { headers: this.getHeaders() });
   }
+  deleteCourse(courseId: string) {
+    return this.http.delete(`${this.baseUrl}/courses/${courseId}`, { headers: this.getHeaders() });
+  }
 }

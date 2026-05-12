@@ -17,6 +17,9 @@ export class ProfCourses implements OnInit {
   userName = localStorage.getItem('userName');
   courses: any[] = [];
   instructors: any[] = [];
+  teachingAssistants: any[] = [];
+  isUserProfessor:boolean=false;
+  levelsList = ['1', '2', '3'];
   departmentsList = ['CS', 'IS', 'IT'];
 
   newCourse: any = {
@@ -47,8 +50,12 @@ export class ProfCourses implements OnInit {
   getAllInstructors() {
     this.instructorService.allInstructors().subscribe({
       next: (res: any) => {
-        this.instructors = res.data.filter((ins: any) => ins.instructorType !== 'PROFESSOR');
-        console.log(this.instructors);
+        this.instructors = res.data;
+        this.teachingAssistants = res.data.filter((ins: any) => ins.instructorType !== 'PROFESSOR');
+        const userId = localStorage.getItem('id');
+        const user = this.instructors.find(ins => ins.id === userId);
+        this.isUserProfessor = user?.instructorType === 'PROFESSOR';
+        localStorage.setItem('userRole', user?.instructorType);
         this.cdr.detectChanges();
       },
       error: (err) => console.error('Error fetching instructors:', err)
@@ -81,7 +88,27 @@ export class ProfCourses implements OnInit {
       error: (err) => console.error('فشل في إنشاء الكورس:', err)
     });
   }
+  deleteCourse(courseId: string) {
+    this.instructorService.deleteCourse(courseId).subscribe({
+      next: (res: any) => {
+        this.getInstructorCourses();
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error deleting course:', err)
+    })
+  }
+courseIdToDelete: any = null;
 
+prepareDelete(id: any) {
+  this.courseIdToDelete = id;
+}
+
+executeDelete() {
+  if (this.courseIdToDelete) {
+    this.deleteCourse(this.courseIdToDelete);
+    this.courseIdToDelete = null;
+  }
+}
   resetForm() {
     this.newCourse = {
       name: '', code: '', description: '',

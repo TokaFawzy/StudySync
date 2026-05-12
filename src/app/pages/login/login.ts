@@ -26,6 +26,7 @@ export class Login {
           if(res.data&&res.data.token){
             localStorage.setItem('token',res.data.token);
             localStorage.setItem('role',res.data.role);
+            localStorage.setItem('id',res.data.userId);
             localStorage.setItem('userName',this.loginForm.value.username!);
           }
           if(res.data.role==='STUDENT'){

@@ -19,3 +19,8 @@ body{
   margin-left: 8px;
 }
 
+@media(max-width:676px){
+  .main{
+    text-align: center;
+  }
+}

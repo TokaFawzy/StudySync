@@ -4,8 +4,8 @@
   style="background-color: #fafafa"
 >
   <div class="m-3 w-100">
-    <h3 class="fw-bold text-dark" style="font-size: 30px">المقررات المضافة</h3>
-    <p class="text-muted" style="font-size: 16px">جميع المقررات المضافة للطلاب</p>
+    <h3 class="fw-bold text-dark main" style="font-size: 30px">المقررات المضافة</h3>
+    <p class="text-muted main" style="font-size: 16px">جميع المقررات المضافة للطلاب</p>
     <div class="cards d-flex flex-wrap">
       @for (course of courses; track course.id; let i = $index) {
         <div
@@ -59,8 +59,22 @@
               ></i>
             </div>
           </div>
+          <div class="d-flex gap-2 justify-content-between align-items-center">
+            <button
+            class="btn text-white py-2 mt-2"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteConfirmModal"
+            (click)="prepareDelete(course.id)"
+            style="
+              background:linear-gradient(135deg, #e94b4b, #c51818);;
+              border-radius: 12px;
+              border: none;
+            "
+          >
+            حذف المقرر
+          </button>
           <button
-            class="btn text-white w-100 py-2 mt-2"
+            class="btn text-white py-2 mt-2"
             [routerLink]="['/courses/course-details', course.id]"
             style="
               background: linear-gradient(135deg, #5d5fef, #3b3dbb);
@@ -70,23 +84,20 @@
           >
             عرض المقرر
           </button>
+          </div>
         </div>
       }
+      @if(isUserProfessor){
       <button
         data-bs-toggle="modal"
         data-bs-target="#addCourseModal"
-        class="card add p-1 shadow-sm m-1 d-flex justify-content-center align-items-center text-secondary"
-        style="
-          min-width: 270px;
-          border-radius: 20px;
-          background: white;
-          border: 2px dashed #ccc;
-          cursor: pointer;
-        "
+        class="card add p-3 shadow-sm m-2 d-flex justify-content-center align-items-center text-secondary"
+          style="min-width: 300px; border-radius: 20px; background: white"
       >
         <i class="fa-solid fa-circle-plus fa-3x mb-2"></i>
         <span>إنشاء مقرر</span>
       </button>
+    }
     </div>
   </div>
 </div>
@@ -159,7 +170,7 @@
           <div class="col-12">
             <label class="form-label fw-bold small d-block">تعيين معيدين</label>
             <div class="p-2 border rounded bg-white" style="max-height: 120px; overflow-y: auto">
-              @for (ta of instructors; track ta.id) {
+              @for (ta of teachingAssistants; track ta.id) {
                 <div class="form-check py-1">
                   <input
                     class="form-check-input"
@@ -193,6 +204,28 @@
         >
           حفظ المقرر
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm mt-3">
+    <div class="modal-content border-0 rounded-4 shadow">
+      <div class="modal-body text-center p-4">
+        <div class="text-danger mb-3">
+          <i class="fa-solid fa-circle-exclamation fa-3x"></i>
+        </div>
+        <h5 class="fw-bold">هل أنت متأكد؟</h5>
+        <p class="text-muted small">سيتم حذف هذا المحتوى نهائياً ولا يمكن التراجع عن هذه الخطوة.</p>
+
+        <div class="d-flex gap-2 mt-4">
+          <button type="button" class="btn btn-light w-50 rounded-3" data-bs-dismiss="modal">
+            إلغاء
+          </button>
+          <button type="button" class="btn btn-danger w-50 rounded-3" data-bs-dismiss="modal" (click)="executeDelete()">
+            حذف الآن
+          </button>
+        </div>
       </div>
     </div>
   </div>

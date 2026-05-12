@@ -10,9 +10,6 @@
   .nav li{
     margin: 5px auto;
   }
-  .main{
-    text-align: center;
-  }
 }
 .done{
   border: 1px solid #06F347;
@@ -38,8 +35,42 @@
 .btn {
   transition: all 0.3s ease;
 }
+.response{
+  margin: 5px !important;
+  padding: 5px !important;
+}
 @media (max-width: 767px) {
+  .nav-pills{
+    margin: 5px auto !important;
+    text-align: center !important;
+  }
+  .response{
+    margin: 10px auto !important;
+  }
   .btnBar {
     margin-inline: auto !important;
   }
+}
+@media (max-width:404px) {
+  .response{
+    margin: 10px auto !important;
+  }
+}
+.mobile-tab-btn {
+    font-size: 13px !important;
+    color: #6b7280;
+    border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.mobile-tab-btn:hover:not(.active) {
+    background-color: #f7f7f7;
+    color: #5D5FEF;
+}
+
+.mobile-tab-btn.active {
+    background-color: #5D5FEF !important;
+    color: white !important;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(93, 95, 239, 0.2);
 }

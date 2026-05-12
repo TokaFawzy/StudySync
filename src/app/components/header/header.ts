@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from "@angular/router";
 
@@ -11,6 +11,7 @@ import { Router, RouterLink } from "@angular/router";
 export class Header {
   userName=signal<string|null>(localStorage.getItem('userName'));
   role=signal<string|null>(localStorage.getItem('role'));
+  userRole=signal<string|null>(localStorage.getItem('userRole'));
   constructor(private router:Router){}
   isLoggedIn():boolean{
     return !!localStorage.getItem('token');

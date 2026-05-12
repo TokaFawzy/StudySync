@@ -1,3 +1,4 @@
+import { TasksService } from './../../Service/tasks/tasks-service';
 import { InstructorService } from './../../Service/instructor/instructor-service';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { Header } from "../../components/header/header";
@@ -18,7 +19,9 @@ import { FormsModule } from '@angular/forms';
 export class CourseDetails {
   constructor(private courseService: AllCourses,
     private instructorService: InstructorService,
-    private cdr: ChangeDetectorRef,private routes:ActivatedRoute){}
+    private cdr: ChangeDetectorRef,
+    private tasksService:TasksService
+    ,private routes:ActivatedRoute){}
   courseMaterials:any=[];
   courseTasks: any = [];
   courseName:string='';
@@ -30,6 +33,7 @@ export class CourseDetails {
     if (this.id) {
       this.fetchMaterials(this.id);
       this.fetchTasks(this.id);
+      this.getDoneTasks();
     }
   }
   getCourseDetails(){
@@ -52,6 +56,8 @@ export class CourseDetails {
       }
     })
   }
+
+
   fetchTasks(id: string) {
     this.instructorService.getCourseTasks(id).subscribe({
       next: (res: any) => {
@@ -87,7 +93,7 @@ export class CourseDetails {
   }
 }
   materialToDeleteId: string | null = null;
-  deleteType: 'MATERIAL' | 'TASK' = 'MATERIAL';
+  deleteType: 'MATERIAL' | 'TASK'= 'MATERIAL';
 
   prepareDelete(id: string, type: 'MATERIAL' | 'TASK' = 'MATERIAL') {
     this.materialToDeleteId = id;
@@ -204,7 +210,7 @@ submitMaterial() {
   }
 }
 
-submitTask() {
+submitCreateTask() {
   if (!this.id) return;
   const taskPayload = {
     ...this.newTask,
@@ -238,16 +244,63 @@ private handleError(err: any) {
   console.error('Error:', err);
   alert('حدث خطأ. يرجى التأكد من البيانات والمحاولة مرة أخرى.');
 }
-  resetForm() {
-    this.newTask = { title: '', description: '', deadline: '',maxGrade:0};
-    this.newMaterial = { title: '', type: 'FILE', url: '' };
-    this.selectedFile = null;
-    this.isEditMode = false;
-    this.materialToEditId = null;
-    this.isTaskEditMode = false;
-    this.taskToEditId = null;
-    const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    if (fileInput) fileInput.value = '';
+resetForm() {
+  this.newTask = { title: '', description: '', deadline: '',maxGrade:0};
+  this.newMaterial = { title: '', type: 'FILE', url: '' };
+  this.selectedFile = null;
+  this.isEditMode = false;
+  this.materialToEditId = null;
+  this.isTaskEditMode = false;
+  this.taskToEditId = null;
+  const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+  if (fileInput) fileInput.value = '';
+}
+studentSubmission = {
+  comment: ''
+};
+selectedTaskForSubmitId: string | null = null;
+
+prepareSubmit(taskId: string) {
+  this.selectedTaskForSubmitId = taskId;
+  this.studentSubmission = { comment: '' };
+  this.selectedFile = null;
+}
+
+submitTask() {
+  if (!this.id || !this.selectedTaskForSubmitId || !this.selectedFile) {
+    alert("برجاء اختيار الملف أولاً");
+    return;
   }
 
+  const formData = new FormData();
+
+  formData.append('file', this.selectedFile);
+  formData.append('comment', this.studentSubmission.comment);
+
+  this.tasksService.submitTask(this.id, this.selectedTaskForSubmitId, formData).subscribe({
+    next: (res: any) => {
+      console.log("Task submitted successfully:", res);
+      this.handleSuccess('#submitTaskModal');
+      this.selectedTaskForSubmitId = null;
+    },
+    error: (err) => {
+       console.error("Submission Error:", err);
+       this.handleError(err);
+    }
+  });
+}
+studentSubmissions: any[] = [];
+getDoneTasks(){
+  this.tasksService.getMySubmissions(this.id!).subscribe({
+    next: (res: any) => {
+      console.log("Tasks submitted successfully:", res);
+      this.studentSubmissions = res.data;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error("Submission Error:", err);
+      this.handleError(err);
+    }
+})
+}
 }

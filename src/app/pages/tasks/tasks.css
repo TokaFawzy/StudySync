@@ -16,3 +16,17 @@
   width: 50px !important;
   height: 50px !important;
 }
+@media (max-width:500px) {
+  .response{
+  margin: 5px !important;
+  padding: 5px !important;
+  }
+  .task-card{
+    margin-inline: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 10px !important;
+  }
+}

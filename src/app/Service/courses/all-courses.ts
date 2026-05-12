@@ -24,11 +24,9 @@ export class AllCourses {
   return this.http.get(`${this.coursesUrl}/courses/${courseId}/materials`, { headers:this.getHeaders() });
   }
   enrollInCourse(id:any){
-    const headers = this.getHeaders();
-    return this.http.post(`${this.coursesUrl}/enrollments/${id}`,{},{headers});
+    return this.http.post(`${this.coursesUrl}/enrollments/${id}`,{},{headers:this.getHeaders()});
   }
   studentCourses(){
-    const headers = this.getHeaders();
-    return this.http.get(`${this.coursesUrl}/enrollments`,{headers});
+    return this.http.get(`${this.coursesUrl}/enrollments`,{headers:this.getHeaders()});
   }
 }

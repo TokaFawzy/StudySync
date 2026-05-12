@@ -10,156 +10,154 @@
       <p class="main" style="color: #6b7280; font-size: 16px">
         جميع المهام والتكليفات المطلوبة والمحتوى الخاص بمقرر المادة
       </p>
-      <div class="m-4 p-3 bg-white rounded-3">
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
+      <div class="response m-4 p-3 bg-white rounded-3">
+        <div class="nav nav-pills d-flex justify-content-start m-2 p-1 bg-white rounded-pill shadow-sm border"
+            style="width: fit-content; margin-left: auto;">
             <button
-              class="nav-link active"
-              aria-current="page"
+              class="nav-item btn btn-sm rounded-pill px-3 py-1 mobile-tab-btn active"
               data-bs-toggle="pill"
               data-bs-target="#filesContent"
-              type="button"
-            >
+              type="button">
               الملفات
             </button>
-          </li>
-          <li class="nav-item dropdown"></li>
-          <li class="nav-item">
             <button
-              class="nav-link"
+              class="nav-item btn btn-sm rounded-pill px-3 py-1 mobile-tab-btn"
               data-bs-toggle="pill"
               data-bs-target="#tasksContent"
-              type="button"
-            >
+              type="button">
               المهام
             </button>
-          </li>
-          <li class="nav-item">
             <button
-              class="nav-link"
+              class="nav-item btn btn-sm rounded-pill px-3 py-1 mobile-tab-btn"
               data-bs-toggle="pill"
               data-bs-target="#quizzesContent"
-              type="button"
-            >
+              type="button">
               الاختبارات
             </button>
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane fade show active" id="filesContent">
-            <table class="table p-2 table-hover mt-4 align-middle">
-              <thead>
-                <tr class="table-secondary align-middle mt-2">
-                  <th scope="col">المحتوى</th>
-                  <th scope="col">النوع</th>
-                  <th scope="col">رفع بواسطة</th>
-                  <th scope="col">تاريخ الرفع</th>
-                  <th scope="col">تحميل/فتح</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (material of courseMaterials; track material.id; let i = $index) {
-                  <tr>
-                    <td class="mb-0">
-                      <p>{{ material.title }}</p>
-                    </td>
-                    <td>
-                      <i class="fa-solid" [ngClass]="getFileIcon(material.url, material.type)"></i>
-                    </td>
-                    <td>{{ material.uploadedByName }}</td>
-                    <td>
-                      {{ material.createdAt | date: 'dd-MM-yyyy' }}
-                    </td>
-                    <td>
-                      @if (material.type == 'FILE') {
-                        <a
-                          [href]="material.url"
-                          target="_blank"
-                          download
-                          class="btn text-white text-center shadow-sm w-75"
-                          style="background: var(--purple)"
-                        >
-                          <i class="fa-solid fa-download me-1"></i>
-                        </a>
-                      } @else {
-                        <a
-                          [href]="material.url"
-                          target="_blank"
-                          class="btn text-white text-center shadow-sm w-75"
-                          style="background: var(--purple)"
-                        >
-                          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                      }
-                    </td>
-                  </tr>
-                } @empty {
-                  <tr>
-                    <td colspan="5" class="text-center p-5 text-muted">
-                      لا يوجد محتوى متاح حالياً
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
           </div>
-          <div class="tab-pane fade" id="tasksContent">
-            <p class="m-2 p-1 fw-bold">المهام المتبقية</p>
-            <div
-              class="task-card m-3 d-flex justify-content-between align-items-end shadow-sm rounded-3 p-2"
-              style="background-color: #fafafa"
-            >
-              <div class="m-2">
-                <h5 class="fw-bold">حل تمارين الفصل التاني</h5>
-                <p class="text-secondary">هندسة البرمجيات متقدم</p>
-                <div class="info d-flex justify-content-between">
-                  <div class="date" style="font-size: 14px">
-                    <span class="text-primary m-1">
-                      <i class="fa-regular fa-calendar"></i>
-                      27-4-2026
-                    </span>
-                    <span class="text-warning">
-                      <i class="fa-regular fa-clock"></i>
-                      10:00 ص
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <a class="upload-task" href="">تسليم المهمة</a>
-            </div>
-            <p class="m-2 p-1 fw-bold">مهام تم تسليمها</p>
-            <div
-              class="task-card m-3 d-flex justify-content-between align-items-center shadow-sm rounded-3 p-2 done"
-              style="background-color: #fafafa"
-            >
-              <div class="m-2">
-                <h5 class="fw-bold">حل تمارين الفصل الرابع</h5>
-                <p class="text-secondary">أمن المعلومات</p>
-                <div class="info d-flex justify-content-between">
-                  <div class="date" style="font-size: 14px">
-                    <span class="text-primary m-1">
-                      <i class="fa-regular fa-calendar"></i>
-                      25-4-2026
-                    </span>
-                    <span class="text-warning">
-                      <i class="fa-regular fa-clock"></i>
-                      10:00 ص
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div class="">
-                <i class="fa-solid fa-circle-check fa-2xl"></i>
-              </div>
-            </div>
-          </div>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="filesContent">
+              <div class="d-flex flex-column gap-3">
+                  @for (material of courseMaterials; track material.id; let i = $index) {
+                  <div class="card border-0 rounded-4 shadow-sm position-relative m-1" style="border: 1px solid #edf2f7 !important;">
+                    <div class="card-body p-3">
+                      <div class="d-flex justify-content-start align-items-center mb-2">
+                        <h6 class="fw-bold mb-0 me-2 text-dark" style="font-size: 15px;">{{ material.title }}</h6>
+                        <span class="small m-1" [ngClass]="getFileIcon(material.url, material.type)"><i class="fa-solid fa-lg mx-auto me-1"></i></span>
+                      </div>
 
-          <div class="tab-pane fade" id="quizzesContent">
-            <div class="quiz-card">
-              <div class="p-5 text-center text-muted">لا يوجد اختبارات حالياً</div>
+                      <div class="d-flex flex-column gap-1 small text-muted" style="font-size: 12px;">
+                        <span><i class="fa-solid fa-user-circle me-1"></i> رفع بواسطة: {{ material.uploadedByName }}</span>
+                        <span><i class="fa-solid fa-calendar-alt me-1"></i> تاريخ الرفع: {{ material.createdAt | date: 'dd-MM-yyyy' }}</span>
+                      </div>
+
+                      <a [href]="material.url"
+                        target="_blank"
+                        class="btn rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                        style="background-color: rgba(93, 95, 239, 0.1); color: #5D5FEF; width: 42px; height: 42px; bottom: 12px; left: 12px; border: 2px solid rgba(93, 95, 239, 0.2);">
+                        <i class="fa-solid fa-lg fs-5 mx-auto text-center" [ngClass]="material.type == 'FILE' ? 'fa-download' : 'fa-external-link-alt'"></i>
+                      </a>
+                    </div>
+                  </div>
+                  } @empty {
+                    <div>
+                      <p colspan="5" class="text-center p-5 text-muted">
+                        لا يوجد محتوى متاح حالياً
+                      </p>
+                    </div>
+                  }
+              </div>
+            </div>
+            <div class="tab-pane fade " id="tasksContent">
+              <div class="d-flex flex-column gap-3">
+                <p class="m-2 p-1 fw-bold">
+                  المهام المتبقية
+                  <span class=" text-white ms-2 bg-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 20px;height: 20px;border-radius: 50%;">{{courseTasks.length}}</span>
+                </p>
+                @for (task of courseTasks; track task.id; let i = $index) {
+                  <div class="card border-0 rounded-4 shadow-sm position-relative m-2 p-2" style="border: 1px solid #edf2f7 !important;">
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="icon-box rounded-circle d-flex align-items-center justify-content-center me-3"
+                        style="width: 45px; height: 45px; background-color: #fdf2f2"
+                      >
+                        <i class="fa-solid fa-list-check text-danger" style="font-size: 18px"></i>
+                      </div>
+                      <div>
+                        <h6 class="m-2 fw-bold text-dark p-2" style="font-size: 15px">
+                          {{ task.title }}
+                        </h6>
+                        @if (task.description) {
+                          <p class="small text-secondary m-1 px-2 mb-2" style="border-right: 2px solid #ddd;">{{ task.description }}</p>
+                        }
+                        <div class="d-flex flex-wrap gap-3 m-2 align-items-center" style="font-size: 12px">
+                          <span class="text-muted">
+                            <i class="fa-regular fa-user me-1"></i> {{ task.assignedBy }}
+                          </span>
+                          <span class="text-danger fw-bold align-self-center">
+                            <i class="fa-regular fa-clock me-1"></i>
+                          اخر موعد للتسليم:
+                            <span style="margin: 1px 0px;">
+                              {{ task.deadline | date: 'dd-MM-yyyy hh:mm a' }}
+                            </span>
+                          </span>
+                          <span class="text-success fw-bold align-self-center">
+                            <i class="fa-solid fa-graduation-cap me-1"></i>
+                            الدرجة: {{ task.maxGrade }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                        <a [href]=""
+                          class="btn position-absolute d-flex align-items-center justify-content-center"
+                          (click)="prepareSubmit(task.id)"
+                          data-bs-toggle="modal"
+                          data-bs-target="#submitTaskModal"
+                          style="background-color: rgba(93, 95, 239, 0.1); color: #5D5FEF; bottom: 12px; left: 12px; border: 2px solid rgba(93, 95, 239, 0.2);">
+                          تسليم المهمة
+                        </a>
+                    </div>
+                  } @empty {
+                    <div>
+                      <p colspan="5" class="text-center p-5 text-muted">
+                        لا يوجد مهام متاحة حالياً
+                      </p>
+                    </div>
+                  }
+              </div>
+              <p class="m-2 p-1 fw-bold">مهام تم تسليمها</p>
+              <div class="d-flex flex-column gap-2 m-2">
+              @for(sub of studentSubmissions; track sub.id){
+                <div class="task-card d-flex justify-content-between align-items-center shadow-sm rounded-3 p-3 m-1"
+                    style="background-color: #f0fdf4; border-right: 5px solid #198754">
+                    <div class="">
+                    <h6 class="fw-bold  text-dark">{{ sub.taskTitle }}</h6>
+                    <div class="info d-flex gap-3" style="font-size: 12px">
+                      <span class="text-muted"><i class="fa-regular fa-calendar me-1"></i> تم التسليم في: {{ sub.submittedAt | date: 'dd-MM-yyyy' }}</span>
+                      @if(sub.grade) {
+                        <span class="text-success fw-bold"><i class="fa-solid fa-star me-1"></i> الدرجة: {{ sub.grade }}</span>
+                      } @else {
+                        <span class="text-warning"><i class="fa-regular fa-clock me-1"></i> قيد التصحيح</span>
+                      }
+                    </div>
+                  </div>
+                  <div class="text-success mt-3">
+                    <i class="fa-solid fa-circle-check fa-2xl"></i>
+                  </div>
+                </div>
+              }@empty {
+                <p class="text-center text-muted small">لم تقم بتسليم أي مهام بعد.</p>
+              }
+              </div>
+            </div>
+
+            <div class="tab-pane fade" id="quizzesContent">
+              <div class="quiz-card">
+                <div class="p-5 text-center text-muted">لا يوجد اختبارات حالياً</div>
+              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   } @else {
@@ -276,7 +274,6 @@
                     >
                       <i class="fa-regular fa-pen-to-square me-1"></i> تعديل
                     </span>
-
                     <span
                       class="action-link text-danger"
                       style="cursor: pointer"
@@ -386,7 +383,7 @@
         <h5 class="modal-title fw-bold">{{ isTaskEditMode ? 'تعديل المهمة' : 'إضافة مهمة جديدة' }}</h5>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="submitTask()" #taskForm="ngForm">
+        <form (ngSubmit)="submitCreateTask()" #taskForm="ngForm">
           <div class="mb-3">
             <label class="form-label small fw-bold">العنوان *</label>
             <input
@@ -532,6 +529,51 @@
             حذف الآن
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="submitTaskModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold text-primary">
+          <i class="fa-solid fa-paper-plane me-2"></i> تسليم المهمة
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <div class="mb-4 text-center p-4 border-2 border-dashed rounded-4"
+             style="border: 2px dashed #dee2e6; background-color: #f8f9fa; cursor: pointer;"
+             (click)="taskFileInput.click()">
+          <input type="file" #taskFileInput (change)="onFileSelected($event)" hidden>
+          <i class="fa-solid fa-cloud-arrow-up fa-3x text-secondary mb-2"></i>
+          <p class="mb-1 fw-bold text-dark">اضغط هنا لرفع ملفك</p>
+          <small class="text-muted">PDF, ZIP, PNG (Max 10MB)</small>
+
+          @if(selectedFile) {
+            <div class="mt-2 text-success fw-bold animate__animated animate__fadeIn">
+              <i class="fa-solid fa-file-circle-check"></i> {{ selectedFile.name }}
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label small fw-bold text-secondary">ملاحظات إضافية</label>
+          <textarea class="form-control rounded-3" rows="3"
+                    [(ngModel)]="studentSubmission.comment"
+                    placeholder="اكتب أي ملاحظات..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-light px-4 rounded-pill" data-bs-dismiss="modal">إلغاء</button>
+        <button type="button" class="btn btn-primary px-5 rounded-pill shadow-sm"
+                [disabled]="!selectedFile"
+                (click)="submitTask()">
+          تأكيد التسليم
+        </button>
       </div>
     </div>
   </div>
