@@ -19,4 +19,7 @@ export class TasksService {
   getMySubmissions(courseId: string) {
     return this.http.get(`${this.baseUrl}/${courseId}/my-submissions`, { headers: this.getHeaders() });
   }
+  getUnsubmitedTasks(courseId: string) {
+    return this.http.get(`${this.baseUrl}/${courseId}/tasks/unsubmitted`, { headers: this.getHeaders() });
+  }
 }

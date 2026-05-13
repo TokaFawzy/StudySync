@@ -72,9 +72,9 @@
               <div class="d-flex flex-column gap-3">
                 <p class="m-2 p-1 fw-bold">
                   المهام المتبقية
-                  <span class=" text-white ms-2 bg-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 20px;height: 20px;border-radius: 50%;">{{courseTasks.length}}</span>
+                  <span class=" text-white ms-2 bg-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 20px;height: 20px;border-radius: 50%;">{{unsubmittedTasks.length}}</span>
                 </p>
-                @for (task of courseTasks; track task.id; let i = $index) {
+                @for (task of unsubmittedTasks; track task.id; let i = $index) {
                   <div class="card border-0 rounded-4 shadow-sm position-relative m-2 p-2" style="border: 1px solid #edf2f7 !important;">
                     <div class="d-flex align-items-center">
                       <div

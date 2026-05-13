@@ -303,4 +303,17 @@ getDoneTasks(){
     }
 })
 }
+unsubmittedTasks: any[] = [];
+getUnsubmitedTasks() {
+  this.tasksService.getUnsubmitedTasks(this.id!).subscribe({
+    next: (res: any) => {
+      console.log("Tasks submitted successfully:", res);
+      this.unsubmittedTasks = res.data;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      this.handleError(err);
+    }
+  });
+}
 }
